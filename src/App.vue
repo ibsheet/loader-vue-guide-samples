@@ -1,26 +1,19 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <Header />
+  <!-- router-view 태그가 있는 부분이 등록된 컴포넌트가 화면에 표시되는 곳 -->
+  <router-view />
+  <Footer />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Header from './components/layout/Header';
+import Footer from './components/layout/Footer';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Header,
+    Footer
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
