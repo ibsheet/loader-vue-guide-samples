@@ -3,7 +3,7 @@
 ### 사용기술
 
 👉 `@ibsheet/loader: 1.1.11` <br/>
-👉 `Javascript, Vue3`
+👉 `javascript, vue3, vue-router4, vuex, quasar`
 
 ### ✨설치방법
 
