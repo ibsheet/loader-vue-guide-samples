@@ -1,19 +1,14 @@
 <template>
-  <Header />
-  <!-- router-view 태그가 있는 부분이 등록된 컴포넌트가 화면에 표시되는 곳 -->
-  <router-view />
-  <Footer />
+  <Layout />
 </template>
 
 <script>
-import Header from './components/layout/Header';
-import Footer from './components/layout/Footer';
+import Layout from './components/layout/Layout';
 
 export default {
   name: 'App',
   components: {
-    Header,
-    Footer
+    Layout
   }
 }
 </script>
