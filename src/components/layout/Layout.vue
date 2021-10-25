@@ -11,7 +11,7 @@
     <q-page-container>
       <div class="makeStyles-content">
         <div class="makeStyles-header">
-          <q-btn round dense flat :ripple="false" :icon="fasTable" size="xl" color=" #42b983" no-caps />
+          <q-btn round dense flat :ripple="false" :icon="fasTable" size="xl" no-caps style="color:#42b983;" />
           <span class="makeStyles-title">IBSheet8</span>
           <p class="makeStyles-subTitle">Loader를 사용하여 IBSheet8의 대용량 조회, 높은 자유도, 다양한 렌더링 방식 등 다양한 기능을 Vue 환경에서 제공합니다.</p>
         </div>
