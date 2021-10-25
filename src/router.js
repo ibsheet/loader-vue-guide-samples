@@ -1,3 +1,4 @@
+// vue3 에서 사용하는 router 방식입니다.
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '@/views/Home';
 import About from '@/views/About';
