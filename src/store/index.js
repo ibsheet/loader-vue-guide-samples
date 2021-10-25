@@ -6,9 +6,9 @@ export const CREATE_SAMPLE = 'CREATE_SAMPLE';
 export const REMOVE_SAMPLE = 'REMOVE_SAMPLE';
 
 const initalState = {
-    title: ''
+  title: ''
 };
 
 export default createStore({
-    modules: initalState
+  modules: initalState
 });
