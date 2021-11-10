@@ -1,13 +1,26 @@
 <template>
-  <q-layout class="bg-grey-1">
-    <q-header elevated class="text-white" style="background: #42b983;" height-hint="61.59">
-      <q-toolbar class="q-py-sm q-px-md" style="min-height: 64px;">
-        <q-btn round dense flat :ripple="false" :icon="fasTable" size="sm" color="white" class="q-mr-sm" no-caps />
-        <div class="text-h6">IBSheet8</div>
-        <q-space />
-      </q-toolbar>
-    </q-header>
 
+  <q-layout class="bg-grey-1" view="hhh LpR fFf">
+
+    <q-header elevated class="text-white" style="background: #42b983;" height-hint="98">
+      <q-toolbar>
+        <q-toolbar-title>
+          <q-avatar>
+            <q-btn round dense flat :ripple="false" :icon="fasTable" size="sm" color="white" class="q-mr-sm" no-caps @click="changeRouter('/Home')"/>
+          </q-avatar>
+          <span> IBSheet8 </span>
+        </q-toolbar-title>
+      </q-toolbar>
+
+      <q-tabs align="center">
+        <!-- <q-route-tab  v-for="(menu, idx) in menuList" :key = "idx" to="/About" > {{menu.label}} </q-route-tab> -->
+        <q-route-tab to="/Home" label="Home" />
+        <q-route-tab to="/About" label="About" />
+        <q-route-tab to="/number" label="NumType" />
+        <q-route-tab to="/text" label="TextType" />
+      </q-tabs>
+    </q-header>
+    
     <q-page-container>
       <div class="makeStyles-content">
         <div class="makeStyles-header">
@@ -21,27 +34,64 @@
         <router-view />
       </div>
     </q-page-container>
-    <footer class="makeStyles-footer">
-      <div class="makeStyles-infooter">
-        여기는 풋영역이에용
-      </div>
-    </footer>
+
+    <q-footer elevated class="bg-grey-8 text-white">
+      <q-toolbar>
+        <q-toolbar-title>
+          <q-avatar>
+            <q-btn round dense flat :ripple="false" :icon="fasTable" size="sm" color="white" class="q-mr-sm" no-caps />
+          </q-avatar>
+          <span>IBSheet8</span>
+        </q-toolbar-title>
+      </q-toolbar>
+    </q-footer>
+
   </q-layout>
 </template>
 
 <script>
 import { fabGithub, fasTable } from '@quasar/extras/fontawesome-v5';
+import { computed } from "vue";
+import { useStore } from "vuex";
 
 export default {
   name: 'Layout',
   setup (props) {
     // vue3 에서는 여기서 다함. lifecycle hook 또한 setup 내부에서 선언하도록 하였습니다
     console.log(props);
+    const store = useStore();
+    const pageName = computed(() => store.state.Page.name);
+    const changePage = (title) => store.commit("CHANGE_SAMPLE", pageName.value = title);
+
     return {
       fabGithub,
-      fasTable
+      fasTable,
+      pageName, changePage
     }
-  }
+  },
+  data () {
+    return {
+      
+    }
+  },
+  // 라우터 사용
+  watch: {
+    '$route.name': function (val, old) {
+      // route 경로 변경시 state에 있는 name을 route name로 세팅.
+      if (val && old) {
+        if (val !== old) {
+          let title = val;
+          //페이지 이름 변경용.(필요할까 이게..?)
+          this.changePage(title)
+        }
+      }
+    }
+  },
+  methods: {
+    changeRouter(name) {
+      this.$router.push(`${name}`);
+    },
+  }  
 }
 </script>
 
