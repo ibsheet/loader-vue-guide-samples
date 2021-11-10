@@ -2,21 +2,18 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '@/views/Home';
 import About from '@/views/About';
+import Sheet from '@/views/Sheet';
 
 // page 로 사용할 파일을 불러와서 경로 지정, name 은 router 에서 사용하는 고유 명사
 const Router = createRouter({
   history: createWebHistory(),
   routes: [
-    {
-      path: '/',
-      name: 'Home',
-      component: Home
-    },
-    {
-      path: '/about',
-      name: 'About',
-      component: About
-    }
+    // vuex를 사용하여 하나의 component로 관리(Home About 두개는 일단 고민...)
+    {path: '/home', name: 'Home', component: Home},
+    {path: '/about', name: 'About', component: About},
+    {path: '/text', name: 'TextType', component: Sheet},
+    {path: '/number', name: 'Number', component: Sheet},
+    {path: '/sheet', name: 'Sheet', component: Sheet}
   ]
 });
 
