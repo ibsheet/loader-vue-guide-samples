@@ -1,14 +1,9 @@
-// vuex 4 선언하는 구간. 예시 적용
+// // vuex 4 선언하는 구간. 예시 적용
 import { createStore } from 'vuex';
-
-export const CREATE_SHEET = 'CREATE_SHEET';
-export const CREATE_SAMPLE = 'CREATE_SAMPLE';
-export const REMOVE_SAMPLE = 'REMOVE_SAMPLE';
-
-const initalState = {
-  title: ''
-};
+import { Sheet } from './modules/sheet';
+import { Page } from './modules/common';
 
 export default createStore({
-  modules: initalState
+  modules: { Sheet, Page }
 });
+ 
