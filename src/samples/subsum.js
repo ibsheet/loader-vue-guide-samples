@@ -335,10 +335,11 @@ export const SubSumData =
       }
     ],
     options: {
+      Def: { Col: { RelWidth: 1 } },
       Cfg: {
         SearchMode: 0,
-        CustomScroll: 1,
-        Style: 'IBMR'
+        // CustomScroll: 1,
+        // Style: 'IBMR'
       },
       LeftCols: [
         {

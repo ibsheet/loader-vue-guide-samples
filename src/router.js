@@ -12,7 +12,7 @@ const Router = createRouter({
     {path: '/home', name: 'Home', component: Home},
     {path: '/about', name: 'About', component: About},
     {path: '/text', name: 'TextType', component: Sheet},
-    {path: '/number', name: 'Number', component: Sheet},
+    {path: '/subsum', name: 'SubSum', component: Sheet},
     {path: '/sheet', name: 'Sheet', component: Sheet}
   ]
 });

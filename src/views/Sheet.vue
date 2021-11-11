@@ -9,8 +9,8 @@
 <script>
 import { computed } from "vue";
 import { useStore } from "vuex";
-import { SheetSampleData } from '../shared/ibsheet-data'
-const ibsample_data  = SheetSampleData
+// import { SheetSampleData } from '../shared/ibsheet-data'
+// const ibsample_data  = SheetSampleData
 
 export default {
   setup() {
@@ -29,29 +29,16 @@ export default {
     return { pageName, createSheet, reomoveSheet, test, sheetInfo, sheetData, sheetId, changePage};
   },
   mounted() {
+    // url 로 바로 접근하는 경우에 시트 생성을 위한구간. 방법이 이게 맞는지는 의문
     switch(this.pageName) {
       case "Number" : 
-        this.createSheet(ibsample_data[1]);
+        this.createSheet(this.test);
         break;
       case "TextType" : 
-        this.createSheet(ibsample_data[0]);
+        this.createSheet(this.test);
         break;
     }
   },
-  beforeUpdate() {
-    this.reomoveSheet(this.sheetId);
-  },
-  updated() {
-    console.log(this.test);
-    switch(this.pageName) {
-      case "Number" : 
-        this.createSheet(ibsample_data[1]);
-        break;
-      case "TextType" : 
-        this.createSheet(ibsample_data[0]);
-        break;
-    }
-  }
 
 }
 </script>

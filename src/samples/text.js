@@ -239,7 +239,7 @@ export const TextData =
       Cfg: {
         SearchMode: 0,
         CustomScroll: 1,
-        Style: 'IBMR'
+        // Style: 'IBMR'
       },
       Def: { Col: { RelWidth: 1 } },
       LeftCols: [

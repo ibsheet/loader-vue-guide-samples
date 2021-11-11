@@ -8,7 +8,7 @@ export const Sheet = {
   state: () => ({sheet_id: '', data: '', options:''}),
   mutations: {
     [CREATE_SHEET.CREATE_SHEET](state, sheetData) {
-      const {data, options} = sheetData;
+      const {data, options} = sheetData["pageInfo"];
       loader.createSheet({
         el: 'sheetContainer',
         options,

@@ -16,8 +16,8 @@
         <!-- <q-route-tab  v-for="(menu, idx) in menuList" :key = "idx" to="/About" > {{menu.label}} </q-route-tab> -->
         <q-route-tab to="/Home" label="Home" />
         <q-route-tab to="/About" label="About" />
-        <q-route-tab to="/number" label="NumType" />
-        <q-route-tab to="/text" label="TextType" />
+        <q-route-tab to="/Text" label="TextType" />
+        <q-route-tab to="/Subsum" label="Subsum" />
       </q-tabs>
     </q-header>
     
@@ -61,12 +61,22 @@ export default {
     console.log(props);
     const store = useStore();
     const pageName = computed(() => store.state.Page.name);
+    const test = computed(() => store.getters);
+    const sheetId = computed(() => store.state.Sheet.sheet_id);
     const changePage = (title) => store.commit("CHANGE_SAMPLE", pageName.value = title);
+    // Layout에서 router watch로 시트 생성하는게 더 그럴싸해보임
+    const createSheet = (sampleData) => store.commit('CREATE_SHEET', sampleData);
+    const reomoveSheet = (id) => store.commit("REMOVE_SAMPLE", id);
+
 
     return {
       fabGithub,
       fasTable,
-      pageName, changePage
+      pageName, changePage,
+      createSheet,
+      reomoveSheet,
+      test,
+      sheetId
     }
   },
   data () {
@@ -78,11 +88,20 @@ export default {
   watch: {
     '$route.name': function (val, old) {
       // route 경로 변경시 state에 있는 name을 route name로 세팅.
+      let title = val;
+      //페이지 이름 변경용.(필요할까 이게..?)
+      this.changePage(title);
       if (val && old) {
         if (val !== old) {
-          let title = val;
-          //페이지 이름 변경용.(필요할까 이게..?)
-          this.changePage(title)
+          this.reomoveSheet(this.sheetId);
+          switch(this.pageName) {
+            case "SubSum" : 
+              this.createSheet(this.test);
+              break;
+            case "TextType" : 
+              this.createSheet(this.test);
+              break;
+          }
         }
       }
     }
