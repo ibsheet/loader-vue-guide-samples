@@ -15,8 +15,13 @@
       <q-tabs align="center">
         <!-- <q-route-tab  v-for="(menu, idx) in menuList" :key = "idx" to="/About" > {{menu.label}} </q-route-tab> -->
         <q-route-tab to="/Home" label="Home" />
-        <q-route-tab to="/About" label="About" />
+        <!-- <q-route-tab to="/About" label="About" /> -->
         <q-route-tab to="/Text" label="TextType" />
+        <q-route-tab to="/Subsum" label="Subsum" />
+        <q-route-tab to="/Tree" label="Tree" />
+        <q-route-tab to="/Subsum" label="Subsum" />
+        <q-route-tab to="/Subsum" label="Subsum" />
+        <q-route-tab to="/Subsum" label="Subsum" />
         <q-route-tab to="/Subsum" label="Subsum" />
       </q-tabs>
     </q-header>
@@ -79,11 +84,13 @@ export default {
       sheetId
     }
   },
-  data () {
+  data() {
     return {
-      
-    }
-  },
+        image: [
+            require('../../assets/type.png'), require('../../assets/subsum.png')
+        ]
+      }
+  }, 
   // 라우터 사용
   watch: {
     '$route.name': function (val, old) {
@@ -91,18 +98,10 @@ export default {
       let title = val;
       //페이지 이름 변경용.(필요할까 이게..?)
       this.changePage(title);
-      if (val && old) {
-        if (val !== old) {
-          this.reomoveSheet(this.sheetId);
-          switch(this.pageName) {
-            case "SubSum" : 
-              this.createSheet(this.test);
-              break;
-            case "TextType" : 
-              this.createSheet(this.test);
-              break;
-          }
-        }
+      // switch 삭제 getter로 필요한 데이터 뽑아올 수 있음
+      if (val && old && val !== old) {
+        this.reomoveSheet(this.sheetId);
+        if (this.pageName != "Home" && old != "Home")this.createSheet(this.test);
       }
     }
   },
