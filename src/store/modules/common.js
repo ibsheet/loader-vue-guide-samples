@@ -2,12 +2,13 @@ import { CHANGE_SAMPLE } from '../mutation-types';
 import { TextData } from '../../samples/text'
 // import { SheetSampleData } from '../../samples/test'
 import { SubSumData } from '../../samples/subsum'
+import { TreeData } from '../../samples/tree'
 // const { data, options } = TextData
 
 
 export const Page = {
   // state에 시트에 필요한 정보를 담아둠.
-  state: () => ({name: '', subsum:SubSumData, text:TextData}),
+  state: () => ({name: '', subsum:SubSumData, text:TextData, tree:TreeData}),
   mutations: {
     [CHANGE_SAMPLE.CHANGE_SAMPLE](state, value) {
       state.name = value;
@@ -22,6 +23,8 @@ export const Page = {
           return state.subsum;
         case "TextType" : 
           return state.text;
+        case "Tree" : 
+          return state.tree;
       }
     }
   },
