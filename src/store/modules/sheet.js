@@ -5,20 +5,24 @@ import loader from '@ibsheet/loader'
 // const { data, options } = SheetSampleData[1]
 
 export const Sheet = {
-  state: () => ({sheet_id: '', data: '', options:''}),
+  state: () => ({tag_id:'', sheet_id: '', data: '', options:''}),
   mutations: {
     [CREATE_SHEET.CREATE_SHEET](state, sheetData) {
       const {data, options} = sheetData["pageInfo"];
       loader.createSheet({
-        el: 'sheetContainer',
+        // el: 'sheetContainer',
+        el: state.tag_id,
         options,
         data
       }).then((sheet) => {
-        state.sheet_id = sheet.id
+        state.sheet_id = sheet.id;
       });
     },
     [REMOVE_SAMPLE.REMOVE_SAMPLE](state, id) {
       loader.removeSheet(id)
+    },
+    [CREATE_SHEET.CHANGE_SHEETDIV](state, tagId) {
+      state.tag_id = tagId;
     }
   },
   getters: {

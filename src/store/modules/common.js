@@ -1,18 +1,24 @@
 import { CHANGE_SAMPLE } from '../mutation-types';
-import { TextData } from '../../samples/text'
-// import { SheetSampleData } from '../../samples/test'
+import { TypeData } from '../../samples/type'
 import { SubSumData } from '../../samples/subsum'
 import { TreeData } from '../../samples/tree'
-// const { data, options } = TextData
+import { MergeData } from '../../samples/merge'
+import { FormulaData } from '../../samples/formula'
+import { MultipleData } from '../../samples/multiple'
+import { setData } from '../../samples/dataload'
+import { DialogData } from '../../samples/dialog'
+import { FormData } from '../../samples/form'
 
 
 export const Page = {
   // state에 시트에 필요한 정보를 담아둠.
-  state: () => ({name: '', subsum:SubSumData, text:TextData, tree:TreeData}),
+  state: () => ({name: '', subsum:SubSumData, text:TypeData, tree:TreeData, merge:MergeData, formula:FormulaData, multiple:MultipleData, dataload:setData, dialog:DialogData, form:FormData, getData:{}}),
   mutations: {
     [CHANGE_SAMPLE.CHANGE_SAMPLE](state, value) {
       state.name = value;
-      // this.SubSumData
+    },
+    [CHANGE_SAMPLE.CHANGE_DATA](state, cnt) {
+      state.getData = state.dataload(cnt);
     }
   },
   getters: {
@@ -21,10 +27,23 @@ export const Page = {
       switch (state.name) {
         case "SubSum" :
           return state.subsum;
-        case "TextType" : 
+        case "Type" : 
           return state.text;
         case "Tree" : 
           return state.tree;
+        case "Merge" : 
+          return state.merge;
+        case "Formula" : 
+          return state.formula;
+        case "Multiple" : 
+          return state.multiple;
+        case "Dialog" : 
+          return state.dialog;
+        case "DataLoad" : 
+          // console.log(state.dataload(100));
+          return state.getData;
+        case "Form" : 
+          return state.dialog;
       }
     }
   },
