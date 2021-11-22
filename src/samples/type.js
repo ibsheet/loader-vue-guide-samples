@@ -1,5 +1,5 @@
 // ibsheet sample data
-export const TextData = 
+export const TypeData = 
   // sheet1
   {
     data: [
