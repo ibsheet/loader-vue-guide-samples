@@ -9,11 +9,17 @@ const Router = createRouter({
   history: createWebHistory(),
   routes: [
     // vuex를 사용하여 하나의 component로 관리(Home About 두개는 일단 고민...)
-    {path: '/home', name: 'Home', component: Home},
+    {path: '/', name: 'Home', component: Home},
     {path: '/about', name: 'About', component: About},
-    {path: '/text', name: 'TextType', component: Sheet},
+    {path: '/type', name: 'Type', component: Sheet},
+    {path: '/merge', name: 'Merge', component: Sheet},
+    {path: '/tree', name: 'Tree', component: Sheet},
     {path: '/subsum', name: 'SubSum', component: Sheet},
-    {path: '/sheet', name: 'Sheet', component: Sheet}
+    {path: '/formula', name: 'Formula', component: Sheet},
+    {path: '/multiple', name: 'Multiple', component: Sheet},
+    {path: '/dataload', name: 'DataLoad', component: Sheet},
+    {path: '/dialog', name: 'Dialog', component: Sheet},
+    {path: '/form', name: 'Form', component: Sheet},
   ]
 });
 

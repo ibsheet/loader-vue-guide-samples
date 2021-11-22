@@ -6,7 +6,7 @@
       <q-toolbar>
         <q-toolbar-title>
           <q-avatar>
-            <q-btn round dense flat :ripple="false" :icon="fasTable" size="sm" color="white" class="q-mr-sm" no-caps @click="changeRouter('/Home')"/>
+            <q-btn round dense flat :ripple="false" :icon="fasTable" size="sm" color="white" class="q-mr-sm" no-caps @click="changeRouter('/')"/>
           </q-avatar>
           <span> IBSheet8 </span>
         </q-toolbar-title>
@@ -14,15 +14,16 @@
 
       <q-tabs align="center">
         <!-- <q-route-tab  v-for="(menu, idx) in menuList" :key = "idx" to="/About" > {{menu.label}} </q-route-tab> -->
-        <q-route-tab to="/Home" label="Home" />
-        <!-- <q-route-tab to="/About" label="About" /> -->
-        <q-route-tab to="/Text" label="TextType" />
-        <q-route-tab to="/Subsum" label="Subsum" />
-        <q-route-tab to="/Tree" label="Tree" />
-        <q-route-tab to="/Subsum" label="Subsum" />
-        <q-route-tab to="/Subsum" label="Subsum" />
-        <q-route-tab to="/Subsum" label="Subsum" />
-        <q-route-tab to="/Subsum" label="Subsum" />
+        <q-route-tab to="/" label="Home" />
+        <q-route-tab to="/type" label="Type" />
+        <q-route-tab to="/merge" label="Merge" />
+        <q-route-tab to="/tree" label="Tree" />
+        <q-route-tab to="/subsum" label="Subsum" />
+        <q-route-tab to="/formula" label="Formula" />
+        <q-route-tab to="/form" label="Form" />
+        <q-route-tab to="/multiple" label="Multiple" />
+        <q-route-tab to="/dialog" label="Dialog" />
+        <q-route-tab to="/dataload" label="DataLoad" />
       </q-tabs>
     </q-header>
     
@@ -86,9 +87,6 @@ export default {
   },
   data() {
     return {
-        image: [
-            require('../../assets/type.png'), require('../../assets/subsum.png')
-        ]
       }
   }, 
   // 라우터 사용
