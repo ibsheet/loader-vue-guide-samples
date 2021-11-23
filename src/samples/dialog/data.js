@@ -1,7 +1,7 @@
 // ibsheet sample data
-export const SubSumData = 
+export const DialogData = 
   // sheet1
-  {
+  [ {
     data: [
       {
         sPolicy: '정적자원운용',
@@ -333,77 +333,7 @@ export const SubSumData =
         D: '305151702500',
         E: '79.43995'
       }
-    ],
-    options: {
-      Def: { Col: { RelWidth: 1 } },
-      Cfg: {
-        SearchMode: 0,
-        // CustomScroll: 1,
-        // Style: 'IBMR'
-      },
-      LeftCols: [
-        {
-          Header: 'No',
-          Type: 'Int',
-          Name: 'SEQ'
-        }
-      ],
-      Cols: [
-        {
-          Header: '정책 사업',
-          Name: 'sPolicy',
-          Type: 'Text',
-          MinWidth: 150,
-          RelWidth: 1,
-        },
-        {
-          Header: '단위 사업',
-          Name: 'sUnit',
-          Type: 'Text',
-          MinWidth: 150,
-          RelWidth: 1,
-        },
-        {
-          Header: '세부사업',
-          Name: 'sDetail',
-          Type: 'Text',
-          MinWidth: 150,
-          RelWidth: 1
-        },
-        {
-          Header: 'A',
-          Name: 'A',
-          Type: 'Int'
-        },
-        {
-          Header: 'B',
-          Name: 'B',
-          Type: 'Int'
-        },
-        {
-          Header: 'C',
-          Name: 'C',
-          Type: 'Int'
-        },
-        {
-          Header: 'D',
-          Name: 'D',
-          Type: 'Int'
-        },
-        {
-          Header: 'E',
-          Name: 'E',
-          Type: 'Int'
-        },
-        {
-          Header: 'F',
-          Name: 'F',
-          Type: 'Int',
-          'Formula': 'E + 10'
-        }
-      ],
-      Events: {}
-    }
+    ]
   }
-  
+]
 
