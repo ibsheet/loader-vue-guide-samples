@@ -34,21 +34,13 @@ export default {
     return { pageName, createSheet, reomoveSheet, test, sheetId, dataLoad, changeSheetDiv};
   },
   mounted() {
-    if (this.$store.state.Page.name == "DataLoad") {
-      this.changeSheetDiv('sheetContainer')
-      this.dataLoad(200);
-      this.createSheet(this.test);
-    } else if (this.$store.state.Page.name == "Multiple") {
-      this.changeSheetDiv('sheetContainer')
-      this.createSheet(this.test);
-      this.changeSheetDiv('sheetContainer2')
-      this.createSheet(this.test);
-      this.changeSheetDiv('sheetContainer3')
-      this.createSheet(this.test);
-    } else {
-      this.changeSheetDiv('sheetContainer')
-      this.createSheet(this.test);
+    console.warn(this.pageName);
+    switch (this.pageName) {
+      case "DataLoad" : 
+        this.dataLoad(100);
+        break;
     }
+    this.createSheet(this.pageName);
   },
 
 }
