@@ -17,27 +17,7 @@ export const Page = {
   getters: {
     //state 에 담긴 name 기준으로 샘플 분리.
     pageInfo(state) {
-      switch (state.name) {
-        case "SubSum" :
-          return state.subsum;
-        case "Type" : 
-          return state.text;
-        case "Tree" : 
-          return state.tree;
-        case "Merge" : 
-          return state.merge;
-        case "Formula" : 
-          return state.formula;
-        case "Multiple" : 
-          return state.multiple;
-        case "Dialog" : 
-          return state.dialog;
-        case "DataLoad" : 
-          // console.log(state.dataload(100));
-          return state.getData;
-        case "Form" : 
-          return state.dialog;
-      }
+      return state.name;
     }
   },
   actions: {
