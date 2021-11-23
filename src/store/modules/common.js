@@ -1,18 +1,11 @@
 import { CHANGE_SAMPLE } from '../mutation-types';
-import { TypeData } from '../../samples/type'
-import { SubSumData } from '../../samples/subsum'
-import { TreeData } from '../../samples/tree'
-import { MergeData } from '../../samples/merge'
-import { FormulaData } from '../../samples/formula'
-import { MultipleData } from '../../samples/multiple'
+
 import { setData } from '../../samples/dataload'
-import { DialogData } from '../../samples/dialog'
-import { FormData } from '../../samples/form'
 
 
 export const Page = {
   // state에 시트에 필요한 정보를 담아둠.
-  state: () => ({name: '', subsum:SubSumData, text:TypeData, tree:TreeData, merge:MergeData, formula:FormulaData, multiple:MultipleData, dataload:setData, dialog:DialogData, form:FormData, getData:{}}),
+  state: () => ({name: '', dataload:setData, getData:{}}),
   mutations: {
     [CHANGE_SAMPLE.CHANGE_SAMPLE](state, value) {
       state.name = value;
