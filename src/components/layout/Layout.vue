@@ -13,7 +13,6 @@
       </q-toolbar>
 
       <q-tabs align="center">
-        <!-- <q-route-tab  v-for="(menu, idx) in menuList" :key = "idx" to="/About" > {{menu.label}} </q-route-tab> -->
         <q-route-tab to="/" label="Home" />
         <q-route-tab to="/type" label="Type" />
         <q-route-tab to="/merge" label="Merge" />
@@ -67,11 +66,10 @@ export default {
     console.log(props);
     const store = useStore();
     const pageName = computed(() => store.state.Page.name);
-    const test = computed(() => store.getters);
     const sheetId = computed(() => store.state.Sheet.sheet_id);
     const changePage = (title) => store.commit("CHANGE_SAMPLE", pageName.value = title);
-    // Layout에서 router watch로 시트 생성하는게 더 그럴싸해보임
-    const createSheet = (sampleData) => store.commit('CREATE_SHEET', sampleData);
+    // const sampleTemplate = (title) => store.commit("CHANGE_SAMPLE", pageName.value = title);
+    // 삭제만 Layout에서 관리
     const reomoveSheet = (id) => store.commit("REMOVE_SAMPLE", id);
 
 
@@ -79,9 +77,7 @@ export default {
       fabGithub,
       fasTable,
       pageName, changePage,
-      createSheet,
       reomoveSheet,
-      test,
       sheetId
     }
   },
@@ -91,15 +87,13 @@ export default {
   }, 
   // 라우터 사용
   watch: {
-    '$route.name': function (val, old) {
+    '$route.name': function (val/* , old */) {
       // route 경로 변경시 state에 있는 name을 route name로 세팅.
-      let title = val;
       //페이지 이름 변경용.(필요할까 이게..?)
-      this.changePage(title);
-      // switch 삭제 getter로 필요한 데이터 뽑아올 수 있음
-      if (val && old && val !== old) {
+      this.changePage(val);
+      // 라우터 변경시 시트 삭제.
+      if (this.sheetId.length > 0) {
         this.reomoveSheet(this.sheetId);
-        if (this.pageName != "Home" && old != "Home")this.createSheet(this.test);
       }
     }
   },
@@ -107,6 +101,9 @@ export default {
     changeRouter(name) {
       this.$router.push(`${name}`);
     },
+  },
+  template: {
+
   }  
 }
 </script>

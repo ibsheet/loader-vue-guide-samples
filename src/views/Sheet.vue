@@ -2,46 +2,58 @@
   <div>
     
     <div class="text-h6">{{pageName}}</div>
-    <!-- <button v-if="pageName == 'SubSum'">dd</button> -->
-    <div id='sheetContainer'></div>
-    <div v-if="pageName == 'Multiple'" id='sheetContainer2'></div>
-    <div v-if="pageName == 'Multiple'" id='sheetContainer3'></div>
+    <Template v-if="setTemp()"/>
+    <div class="row no-wrap">
+      <div id='sheetContainer' style="min-width: 400px"></div>
+      <div v-if="pageName == 'Multiple'" id='sheetContainer2' style="min-width: 400px"></div>
+      <div v-if="pageName == 'Multiple'" id='sheetContainer3' style="min-width: 400px"></div>
+    </div>
   </div>
 </template>
 
 <script>
 import { computed } from "vue";
 import { useStore } from "vuex";
-// import { setData } from '../samples/dataload'
 
-
+import Template from './Template.vue'
 
 export default {
   setup() {
     const store = useStore();
     const pageName = computed(() => store.state.Page.name);
     const sheetId = computed(() => store.state.Sheet.sheet_id);
-    const test = computed(() => store.getters);
-    // 시트 생성&삭제
+    const getters = computed(() => store.getters);
+    // 시트 생성만 여기서
     const createSheet = (sampleData) => store.commit('CREATE_SHEET', sampleData);
-    const changeSheetDiv = (divId) => store.commit('CHANGE_SHEETDIV', divId);
-    const reomoveSheet = (id) => store.commit("REMOVE_SAMPLE", id);
-
+    // const template = (pageName) => store.commit('CHANGE_TEMP', pageName);
+    
     const dataLoad = (cnt) => store.commit("CHANGE_DATA", cnt);
 
     
 
-    return { pageName, createSheet, reomoveSheet, test, sheetId, dataLoad, changeSheetDiv};
+    return { pageName, createSheet,  getters, sheetId, dataLoad, setTemp(){
+      if (this.pageName == "Merge") {
+          return true
+      }
+    }};
+  },
+  components: {
+    Template
   },
   mounted() {
-    console.warn(this.pageName);
     switch (this.pageName) {
+      case "Merge" :
       case "DataLoad" : 
-        this.dataLoad(100);
+        // this.template(this.pageName);
+        // this.dataLoad(1000);
         break;
     }
     this.createSheet(this.pageName);
   },
+  updated() {
+    if (this.pageName == "DataLoad") this.dataLoad(1000);
+    this.createSheet(this.pageName);
+  }
 
 }
 

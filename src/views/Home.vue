@@ -5,7 +5,7 @@
       <q-btn :to='info.title' ><img :dense="$q.screen.xs" :src = info.img style="height: 180px; width: 300px"></q-btn>
       <q-card-actions align="left">
         <q-btn color="secondary" class="no-pointer-events"> 기본기능 </q-btn>
-        <q-btn flat :to='info.title' :name="girlSvg"> {{info.title}} </q-btn>
+        <q-btn flat :to='info.title'> {{info.title}} </q-btn>
       </q-card-actions>
     </q-card>
 
@@ -25,7 +25,6 @@ export default {
             {title:'Multiple', img:require('../assets/multi.png')},
             {title:'Dialog', img:require('../assets/dialog.png')},
             {title:'Dataload', img:require('../assets/dataload.png')},
-            // require('../assets/type.png'), require('../assets/subsum.png')
         ]
      }
  },
