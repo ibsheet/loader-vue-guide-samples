@@ -1,17 +1,25 @@
 import { CHANGE_SAMPLE } from '../mutation-types';
-
-import { setData } from '../../samples/dataload'
-
+import { dataFunction } from '../../samples/dataload/fun'
+import { Function } from '../../samples/merge/function'
 
 export const Page = {
   // state에 시트에 필요한 정보를 담아둠.
-  state: () => ({name: '', dataload:setData, getData:{}}),
+  state: () => ({name: '', data_load:dataFunction, merge:Function, tag:''}),
   mutations: {
     [CHANGE_SAMPLE.CHANGE_SAMPLE](state, value) {
       state.name = value;
     },
-    [CHANGE_SAMPLE.CHANGE_DATA](state, cnt) {
-      state.getData = state.dataload(cnt);
+    [CHANGE_SAMPLE.CHANGE_TEMP] (state, value) {
+      switch(value) {
+        case "Merge" :
+          state.tag = state.merge();
+          break;
+        case "DataLoad" :
+          state.tag = state.data_load();
+          break;
+      }
+      console.warn(state.tag);
+      return state.tag;
     }
   },
   getters: {
