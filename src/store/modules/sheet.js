@@ -1,5 +1,7 @@
 import { CREATE_SHEET } from '../mutation-types';
 import { REMOVE_SAMPLE } from '../mutation-types';
+import { CHANGE_SAMPLE } from '../mutation-types';
+
 import { MultipleOptions } from '../../samples/multiple/info'
 import { MultipleData } from '../../samples/multiple/data'
 import { DialogOption } from '../../samples/dialog/info'
@@ -16,13 +18,16 @@ import { SubSumOption } from '../../samples/subsum/info'
 import { SubSumData } from '../../samples/subsum/data'
 import { FormulaOption } from '../../samples/formula/info'
 import { FormulaData } from '../../samples/formula/data'
+import { DataLoadOption } from '../../samples/dataload/info'
+import { set_data } from '../../samples/dataload/data'
+
 import loader from '@ibsheet/loader'
 
 // import { SheetSampleData } from '../../samples/text'
 // const { data, options } = SheetSampleData[1]
 
 export const Sheet = {
-  state: () => ({sheet_id:[], data: [], options:[]}),
+  state: () => ({sheet_id:[], data: [], options:[], setting_data:set_data}),
   mutations: {
     
     [CREATE_SHEET.CREATE_SHEET](state, pageName) {
@@ -56,7 +61,9 @@ export const Sheet = {
           state.data = DialogData;
           break;
         case "DataLoad" : 
-          return state.getData;
+          state.options = DataLoadOption;
+          state.data = [{data:state.data}];
+          break;
         case "Form" : 
           state.options = FormOption;
           state.data = FormData;
@@ -76,7 +83,7 @@ export const Sheet = {
           case 'Form':
             sheet.options.Events = {
               onRenderFirstFinish: evt => {
-                if (name !== 'DataLoad' && state.data.length > 0) {
+                if (state.data.length > 0) {
                   state.data.map(sheetData =>{
                     evt.sheet.loadSearchData(sheetData);
                   })
@@ -106,10 +113,14 @@ export const Sheet = {
         id.map(sheetId => {
           loader.removeSheet(sheetId)
         })
+        state.sheet_id = [];
       }
     },
     [CREATE_SHEET.CHANGE_SHEETDIV](state, tagId) {
       state.tag_id = tagId;
+    },
+    [CHANGE_SAMPLE.CHANGE_DATA](state, cnt) {
+      state.data = state.setting_data(cnt);
     }
   },
   getters: {
