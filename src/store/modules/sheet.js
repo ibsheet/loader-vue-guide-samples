@@ -27,7 +27,7 @@ import loader from '@ibsheet/loader'
 // const { data, options } = SheetSampleData[1]
 
 export const Sheet = {
-  state: () => ({sheet_id:[], data: [], options:[], setting_data:set_data}),
+  state: () => ({sheet:[], data: [], options:[], setting_data:set_data}),
   mutations: {
     
     [CREATE_SHEET.CREATE_SHEET](state, pageName) {
@@ -102,18 +102,18 @@ export const Sheet = {
             options : sheet.options ,
             // data : sheet.data
           }).then((sheet) => {
-            state.sheet_id.push(sheet.id);
+            state.sheet.push(sheet);
           });
         });
       }
 
     },
-    [REMOVE_SAMPLE.REMOVE_SAMPLE](state, id) {
-      if (id.length > 0) {
-        id.map(sheetId => {
-          loader.removeSheet(sheetId)
+    [REMOVE_SAMPLE.REMOVE_SAMPLE](state, sObj) {
+      if (sObj.length > 0) {
+        sObj.map(sheetObj => {
+          loader.removeSheet(sheetObj.id)
         })
-        state.sheet_id = [];
+        state.sheet = [];
       }
     },
     [CREATE_SHEET.CHANGE_SHEETDIV](state, tagId) {

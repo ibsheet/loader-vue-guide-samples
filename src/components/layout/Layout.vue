@@ -66,8 +66,9 @@ export default {
     console.log(props);
     const store = useStore();
     const pageName = computed(() => store.state.Page.name);
-    const sheetId = computed(() => store.state.Sheet.sheet_id);
-    const changePage = (title) => store.commit("CHANGE_SAMPLE", pageName.value = title);
+    const sheetObj = computed(() => store.state.Sheet.sheet);
+    const changePage = (title) => store.commit("CHANGE_SAMPLE", title);
+    // const createSheet = (sampleData) => store.commit('CREATE_SHEET', sampleData);
     // const sampleTemplate = (title) => store.commit("CHANGE_SAMPLE", pageName.value = title);
     // 삭제만 Layout에서 관리
     const reomoveSheet = (id) => store.commit("REMOVE_SAMPLE", id);
@@ -78,7 +79,7 @@ export default {
       fasTable,
       pageName, changePage,
       reomoveSheet,
-      sheetId
+      sheetObj
     }
   },
   data() {
@@ -92,8 +93,8 @@ export default {
       //페이지 이름 변경용.(필요할까 이게..?)
       this.changePage(val);
       // 라우터 변경시 시트 삭제.
-      if (this.sheetId.length > 0) {
-        this.reomoveSheet(this.sheetId);
+      if (this.sheetObj.length > 0) {
+        this.reomoveSheet(this.sheetObj);
       }
     }
   },
