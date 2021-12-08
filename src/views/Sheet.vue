@@ -4,19 +4,19 @@
     <div class="text-h6">{{pageName}}</div>
     <div class="q-pa-md" v-if="setTemp()">
     <div class="q-gutter-md row no-wrap center">
-      <q-select v-model="val.item[0]" :options="val.item" transition-show="jump-up" transition-hide="jump-up" style="width: 200px"
+      <q-select v-if="test(pageName)" v-model="model" :options="val.item" transition-show="jump-up" transition-hide="jump-up" style="width: 200px"
       :option-value="opt => Object(opt) === opt && 'value' in opt ? opt.value : null"
         @update:model-value="(opt) => (
           chgOpt(sheetObj, opt.value, options.value, options.value)
         )"
       />
 
-      <q-select v-if="test(pageName)" v-model="val.item2[0]" :options="val.item2" transition-show="jump-up" transition-hide="jump-up" style="width: 200px"
+      <q-select v-if="test(pageName)" v-model="model2" :options="val.item2" transition-show="jump-up" transition-hide="jump-up" style="width: 200px"
       :option-value="opt => Object(opt) === opt && 'value' in opt ? opt.value : null"
       @update:model-value="(opt) => (
           chgOpt(sheetObj, options.value, opt.value, options.value)
         )"/>
-      <q-select v-if="test(pageName)" v-model="val.item3[0]" :options="val.item3" transition-show="jump-up" transition-hide="jump-up" style="width: 200px"
+      <q-select v-if="test(pageName)" v-model="model3" :options="val.item3" transition-show="jump-up" transition-hide="jump-up" style="width: 200px"
       :option-value="opt => Object(opt) === opt && 'value' in opt ? opt.value : null"
       @update:model-value="(opt) => (
           chgOpt(sheetObj, options.value, options.value, opt.value)
@@ -53,17 +53,11 @@ export default {
     const optList = options(store.state.Page.name);
     const chgOpt = changeOpt;
     const val = ref(optList);
-    // const val = {};
-    // val.item = 
-    //     [{label:'HeaderMerge: 8', value:8},
-    //        {label:'HeaderMerge: 1', value:1}, 
-    //        {label:'HeaderMerge: 2', value:2}, 
-    //        {label:'HeaderMerge: 3', value:3},
-    //        {label:'HeaderMerge: 4', value:4},
-    //        {label:'HeaderMerge: 5', value:5},
-    //        {label:'HeaderMerge: 6', value:6}];
+    const model = ref(null);
+    const model2 = ref(null);
+    const model3 = ref(null);
 
-    return {val, optList, createSheet, options, chgOpt, pageName, getters, sheetObj, dataLoad, setTemp(){
+    return {model, model2, model3, val, optList, createSheet, options, chgOpt, pageName, getters, sheetObj, dataLoad, setTemp(){
         switch (this.pageName) {
           case "Merge" :
           case "Tree" :
@@ -72,11 +66,10 @@ export default {
         }
       },
       test(name) {
-        if (name == "Merge" && this.val.item2) {
+        if (name == "Merge") {
           return true;
         }
-      },
-      model : ref(null)
+      }
     };
   },
   components: {
