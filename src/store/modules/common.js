@@ -1,10 +1,10 @@
 import { CHANGE_SAMPLE } from '../mutation-types';
 import { dataFunction } from '../../samples/dataload/fun'
-import { Function } from '../../samples/merge/function'
+// import { Function } from '../../samples/merge/function'
 
 export const Page = {
   // state에 시트에 필요한 정보를 담아둠.
-  state: () => ({name: '', data_load:dataFunction, merge:Function, tag:''}),
+  state: () => ({name: '', data_load:dataFunction, tag:''}),
   mutations: {
     [CHANGE_SAMPLE.CHANGE_SAMPLE](state, value) {
       state.name = value;
