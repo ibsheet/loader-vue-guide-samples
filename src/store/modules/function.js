@@ -6,7 +6,7 @@ const getItemList = (pageName) => {
     // 
     case "Merge" :
       itemList.item = 
-        [{label:'HeaderMerge: 8', value:8},
+        [{label:'HeaderMerge: 0', value:0},
            {label:'HeaderMerge: 1', value:1}, 
            {label:'HeaderMerge: 2', value:2}, 
            {label:'HeaderMerge: 3', value:3},
