@@ -4,24 +4,28 @@
     <div class="text-h6">{{pageName}}</div>
     <div class="q-pa-md" v-if="setTemp()">
     <div class="q-gutter-md row no-wrap center">
-      <q-select v-if="test(pageName)" v-model="model" :options="val.item" transition-show="jump-up" transition-hide="jump-up" style="width: 200px"
+      <q-select v-model="model" :options="val.item" transition-show="jump-up" transition-hide="jump-up" style="width: 200px"
       :option-value="opt => Object(opt) === opt && 'value' in opt ? opt.value : null"
         @update:model-value="(opt) => (
-          chgOpt(sheetObj, opt.value, options.value, options.value)
+          chgOpt(pageName, sheetObj, opt, model2, model3)
         )"
       />
 
       <q-select v-if="test(pageName)" v-model="model2" :options="val.item2" transition-show="jump-up" transition-hide="jump-up" style="width: 200px"
       :option-value="opt => Object(opt) === opt && 'value' in opt ? opt.value : null"
       @update:model-value="(opt) => (
-          chgOpt(sheetObj, options.value, opt.value, options.value)
+          chgOpt(pageName, sheetObj, model, opt, model3)
         )"/>
       <q-select v-if="test(pageName)" v-model="model3" :options="val.item3" transition-show="jump-up" transition-hide="jump-up" style="width: 200px"
       :option-value="opt => Object(opt) === opt && 'value' in opt ? opt.value : null"
       @update:model-value="(opt) => (
-          chgOpt(sheetObj, options.value, options.value, opt.value)
+          chgOpt(pageName, sheetObj, model, model2, opt)
         )"/>
     </div>
+
+  </div>
+  <div class="q-gutter-md row no-wrap center" v-if="test2()">
+    <button>aaaa </button>
   </div>
     
     <div class="row no-wrap">
@@ -69,6 +73,9 @@ export default {
         if (name == "Merge") {
           return true;
         }
+      },
+      test2() {
+        if (this.pageName == "SubSum") return true;
       }
     };
   },
@@ -95,6 +102,9 @@ export default {
         this.createSheet(val);
         this.optList = getItemList(this.pageName);
         this.val = ref(this.optList);
+        this.model = ref(null);
+        this.model2 = ref(null);
+        this.model3 = ref(null);
       }
     }
   },

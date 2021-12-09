@@ -47,12 +47,22 @@ const getItemList = (pageName) => {
   return itemList
 };
 
-const changeOpt = (sheetId, val, val2, val3) => {
+const changeOpt = (pageName, sheetId, val, val2, val3) => {
 
-  // const store = useStore();
-  
+  switch (pageName) {
+    case "Tree" :
+      sheetId[0].showTreeLevel(val.value);
+      break;
+    case "Merge" : 
+      if(sheetId) {
+        if (val) val = val.value;
+        if (val2) val2 = val2.value;
+        if (val3) val3 = val3.value;
+        sheetId[0].setAutoMerge({headerMerge: val, dataMerge: val2, prevColumnMerge: val3})
+      }
+      break;
+  }
 
-  if(sheetId) sheetId[0].setAutoMerge({headerMerge: val, dataMerge: val2, prevColumnMerge: val3})
 }
 
 export { getItemList, changeOpt }
