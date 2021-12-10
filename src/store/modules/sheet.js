@@ -5,6 +5,7 @@ import { CHANGE_SAMPLE } from '../mutation-types';
 import { MultipleOptions } from '../../samples/multiple/info'
 import { MultipleData } from '../../samples/multiple/data'
 import { DialogOption } from '../../samples/dialog/info'
+import { ModalOption } from '../../samples/dialog/QuasarModal/info'
 import { DialogData } from '../../samples/dialog/data'
 import { FormOption } from '../../samples/form/info'
 import { FormData } from '../../samples/form/data'
@@ -62,11 +63,15 @@ export const Sheet = {
           break;
         case "DataLoad" : 
           state.options = DataLoadOption;
-          state.data = [{data:state.data}];
+          // state.data = [{data:state.data}];
           break;
         case "Form" : 
           state.options = FormOption;
           state.data = FormData;
+          break;
+        case "ModalOpen" : 
+          state.options = ModalOption;
+          state.data = TypeData;
           break;
       }
 
@@ -95,9 +100,10 @@ export const Sheet = {
       };
 
       if (state.options.length > 0) {
-        state.options.map(sheet => {
+        state.options.map((sheet, idx) => {
           eventBinding(pageName, sheet);
           loader.createSheet({
+            id: sheet.id ? sheet.id : 'sheet' + idx,
             el: sheet.el,
             options : sheet.options ,
             // data : sheet.data
@@ -109,11 +115,13 @@ export const Sheet = {
 
     },
     [REMOVE_SAMPLE.REMOVE_SAMPLE](state, sObj) {
-      if (sObj.length > 0) {
+      if (sObj.length > 0 && typeof(sObj) != 'string') {
         sObj.map(sheetObj => {
           loader.removeSheet(sheetObj.id)
         })
         state.sheet = [];
+      } else {
+        loader.removeSheet(sObj);
       }
     },
     [CREATE_SHEET.CHANGE_SHEETDIV](state, tagId) {
@@ -125,7 +133,7 @@ export const Sheet = {
   },
   getters: {
     sheetnInfo(state) {
-      return `시트 이름 : ${state.sheet_id}`;
+      return state.sheet;
     }
   },
   actions: {

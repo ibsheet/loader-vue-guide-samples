@@ -1,5 +1,3 @@
-// import { computed } from "vue";
-
 const getItemList = (pageName) => {
   const itemList = {};
   switch(pageName) {
@@ -41,25 +39,201 @@ const getItemList = (pageName) => {
         {label:'200,000 건', value:200000}, 
         {label:'300,000 건', value:300000}];
       break;
+    case "SubSum" :
+      itemList.item = 
+      [{label:'단일 컬럼 소계', value:'subsum'},
+        {label:'단일 컬럼 소계 / 누계', value:'cumulate'}, 
+        {label:'다중 컬럼 소계', value:'multisubsum'},
+        {label:'다중 컬럼 소계 / 누계', value:'multicumulate'},
+        {label:'소계행 삭제', value:'removesubsum'}
+      ];
+      break;
   }
 
   
   return itemList
 };
 
-const changeOpt = (pageName, sheetId, val, val2, val3) => {
+
+const changeOpt = (pageName, sheetObj, val, val2, val3) => {
+
+  const color = {
+    subsum: '#f08080',
+    cumul: '#78c7fa',
+    multisubsum: '#fad1d1',
+    multicumul: '#ceebfd'
+  };
+  const data = [];
+  const company = [
+    'Google',
+    'Apple',
+    '삼성전자',
+    'LG전자',
+    '한화',
+    'Microsoft',
+    '현대',
+    '현기차',
+    'SK',
+    '롯데'
+  ];
+  const country = [
+    '미국',
+    '일본',
+    '한국',
+    '영국',
+    '캐나다',
+    '중국',
+    '프랑스',
+    '브라질',
+    '인도',
+    '이탈리아'
+  ];
 
   switch (pageName) {
     case "Tree" :
-      sheetId[0].showTreeLevel(val.value);
+      eval(sheetObj[0].id).showTreeLevel(val.value);
       break;
     case "Merge" : 
-      if(sheetId) {
         if (val) val = val.value;
         if (val2) val2 = val2.value;
         if (val3) val3 = val3.value;
-        sheetId[0].setAutoMerge({headerMerge: val, dataMerge: val2, prevColumnMerge: val3})
-      }
+        eval(sheetObj[0].id).setAutoMerge({headerMerge: val, dataMerge: val2, prevColumnMerge: val3})
+      break;
+    case "SubSum" : 
+        switch(val.value) {
+          case 'subsum':
+            eval(sheetObj[0].id).makeSubTotal([
+              {
+                stdCol: 'sPolicy',
+                sumCols: 'A|B|C|D',
+                position: 'bottom',
+                color: color.subsum,
+                captionCol: [
+                  {
+                    col: 'sPolicy',
+                    val: '%s: %col',
+                    cumVal: '%s: %col',
+                    span: 3
+                  },
+                  {
+                    col: 'E',
+                    val: ' ',
+                    cumVal: ' ',
+                    span: 2
+                  }
+                ],
+              }
+            ]);
+            break;
+          case 'cumulate':
+            eval(sheetObj[0].id).makeSubTotal([
+              {
+                stdCol: 'sPolicy',
+                sumCols: 'A|B|C|D',
+                captionCol: [
+                  {
+                    col: 'sPolicy',
+                    val: '%s: %col',
+                    cumVal: '%s: %col',
+                    span: 3
+                  }
+                ],
+                showCumulate: 1,
+                color: color.subsum,
+                cumulateColor: color.cumul ,
+                position: 'bottom'
+              }
+            ]);
+            break;
+          case 'multisubsum':
+            eval(sheetObj[0].id).makeSubTotal([
+              {
+                stdCol: 'sPolicy',
+                sumCols: 'B|C',
+                position: 'bottom',
+                color: color.subsum
+              },
+              {
+                stdCol: 'sUnit',
+                avgCols: 'B|C',
+                captionCol: [
+                  {
+                    col: 'sUnit',
+                    val: '%s: %col'
+                  }
+                ],
+                position: 'bottom',
+                color: color.multisubsum
+              },
+            ]);
+            break;
+          case 'multicumulate':
+            eval(sheetObj[0].id).makeSubTotal([
+              {
+                stdCol: 'sPolicy',
+                sumCols: 'B|C',
+                captionCol: [
+                  {
+                    col: 'sPolicy',
+                    val: '%s: %col',
+                    cumVal: '%s: %col'
+                  }
+                ],
+                showCumulate: 1,
+                position: 'bottom',
+                color: color.subsum,
+                cumulateColor: color.cumul,
+              },
+              {
+                stdCol: 'sUnit',
+                avgCols: 'B|C',
+                captionCol: [
+                  {
+                    col: 'sUnit',
+                    val: '%s: %col',
+                    cumVal: '%s: %col'
+                  }
+                ],
+                showCumulate: 1,
+                position: 'bottom',
+                color: color.multisubsum,
+                cumulateColor: color.multicumul
+              },
+              {
+                stdCol: 'sDetail',
+                avgCols: 'A|D',
+                captionCol: [
+                  {
+                    col: 'sDetail',
+                    val: '%s: %col',
+                    cumVal: '%s: %col'
+                  }
+                ],
+                countCols: 'E',
+                showCumulate: 1,
+                position: 'bottom',
+                color: color.multisubsum,
+                cumulateColor: color.multicumul
+              }
+            ]);
+            break;
+          default:
+            eval(sheetObj[0].id).removeSubTotal();
+        }
+      break;
+    case "DataLoad" : 
+        for (let i = 0; i < val.value; i++) {
+          data.push({
+            sCompany: company[Math.floor(Math.random() * 10)],
+            sCountry: country[Math.floor(Math.random() * 10)],
+            sSaleQuantity: Math.floor(Math.random() * 100000),
+            sSaleIncrease: Math.floor(Math.random() * 10000),
+            sPrice: Math.floor(Math.random() * 10000000),
+            sSatisfaction: Math.floor(Math.random() * (100 - 50 + 1) + 50),
+          });
+        }
+      
+        eval(sheetObj[0].id).loadSearchData({data:data});
       break;
   }
 
