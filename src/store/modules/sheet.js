@@ -28,7 +28,7 @@ import loader from '@ibsheet/loader'
 // const { data, options } = SheetSampleData[1]
 
 export const Sheet = {
-  state: () => ({sheet:[], data: [], options:[], setting_data:set_data}),
+  state: () => ({sheet:[], data: [], options:[], setting_data:set_data, model:{a:'bb'}}),
   mutations: {
     
     [CREATE_SHEET.CREATE_SHEET](state, pageName) {
@@ -86,6 +86,7 @@ export const Sheet = {
           case 'Dialog':
           case 'DataLoad':
           case 'Form':
+          case 'ModalOpen':
             sheet.options.Events = {
               onRenderFirstFinish: evt => {
                 if (state.data.length > 0) {
@@ -109,6 +110,23 @@ export const Sheet = {
             // data : sheet.data
           }).then((sheet) => {
             state.sheet.push(sheet);
+            if (pageName == "Form") {
+              sheet.bind('onFocus', evt => {
+                document.getElementsByName('sName')[0].value = evt.row['sName'];
+                document.getElementsByName('sAge')[0].value = evt.row['sAge'];
+                document.getElementsByName('sPosi')[0].value = evt.row['sPosi'];
+                document.getElementsByName('sPrice')[0].value = evt.row['sPrice'];
+                document.getElementsByName('sDepart')[0].value = evt.row['sDepart'];
+              });
+              sheet.bind('onBlur', evt => {
+                evt.row;
+                document.getElementsByName()[0].value = '';
+                document.getElementsByName()[0].value = '';
+                document.getElementsByName()[0].value = '';
+                document.getElementsByName()[0].value = '';
+                document.getElementsByName()[0].value = '';
+              });
+            }
           });
         });
       }

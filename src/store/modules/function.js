@@ -235,6 +235,10 @@ const changeOpt = (pageName, sheetObj, val, val2, val3) => {
       
         eval(sheetObj[0].id).loadSearchData({data:data});
       break;
+    case "Form" : 
+        for (let idx = 0; idx < val.target.length; idx++) {
+          eval(sheetObj[0].id).setValue(sheetObj[0].getFocusedRow(), val.target[idx].name, val.target[idx].value);
+        }
   }
 
 }
