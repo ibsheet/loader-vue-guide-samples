@@ -8,9 +8,8 @@ export const TreeOption =
         SearchMode: 0,
         HeaderMerge: 3,
         CustomScroll: 1,
-        MainCol: 'Sol',
-        // Style: 'IBMR'
-      },
+          Style: 'IBMT'
+        },
       LeftCols: [
         {
           Type: 'Int',

@@ -56,7 +56,7 @@ const getItemList = (pageName) => {
 
 
 const changeOpt = (pageName, sheetObj, val, val2, val3) => {
-
+  const mySheet = eval(sheetObj[0].id);
   const color = {
     subsum: '#f08080',
     cumul: '#78c7fa',
@@ -91,18 +91,18 @@ const changeOpt = (pageName, sheetObj, val, val2, val3) => {
 
   switch (pageName) {
     case "Tree" :
-      eval(sheetObj[0].id).showTreeLevel(val.value);
+      mySheet.showTreeLevel(val.value);
       break;
     case "Merge" : 
         if (val) val = val.value;
         if (val2) val2 = val2.value;
         if (val3) val3 = val3.value;
-        eval(sheetObj[0].id).setAutoMerge({headerMerge: val, dataMerge: val2, prevColumnMerge: val3})
+        mySheet.setAutoMerge({headerMerge: val, dataMerge: val2, prevColumnMerge: val3})
       break;
     case "SubSum" : 
         switch(val.value) {
           case 'subsum':
-            eval(sheetObj[0].id).makeSubTotal([
+            mySheet.makeSubTotal([
               {
                 stdCol: 'sPolicy',
                 sumCols: 'A|B|C|D',
@@ -126,7 +126,7 @@ const changeOpt = (pageName, sheetObj, val, val2, val3) => {
             ]);
             break;
           case 'cumulate':
-            eval(sheetObj[0].id).makeSubTotal([
+            mySheet.makeSubTotal([
               {
                 stdCol: 'sPolicy',
                 sumCols: 'A|B|C|D',
@@ -146,7 +146,7 @@ const changeOpt = (pageName, sheetObj, val, val2, val3) => {
             ]);
             break;
           case 'multisubsum':
-            eval(sheetObj[0].id).makeSubTotal([
+            mySheet.makeSubTotal([
               {
                 stdCol: 'sPolicy',
                 sumCols: 'B|C',
@@ -168,7 +168,7 @@ const changeOpt = (pageName, sheetObj, val, val2, val3) => {
             ]);
             break;
           case 'multicumulate':
-            eval(sheetObj[0].id).makeSubTotal([
+            mySheet.makeSubTotal([
               {
                 stdCol: 'sPolicy',
                 sumCols: 'B|C',
@@ -218,7 +218,7 @@ const changeOpt = (pageName, sheetObj, val, val2, val3) => {
             ]);
             break;
           default:
-            eval(sheetObj[0].id).removeSubTotal();
+            mySheet.removeSubTotal();
         }
       break;
     case "DataLoad" : 
@@ -233,11 +233,11 @@ const changeOpt = (pageName, sheetObj, val, val2, val3) => {
           });
         }
       
-        eval(sheetObj[0].id).loadSearchData({data:data});
+        mySheet.loadSearchData({data:data});
       break;
     case "Form" : 
         for (let idx = 0; idx < val.target.length; idx++) {
-          eval(sheetObj[0].id).setValue(sheetObj[0].getFocusedRow(), val.target[idx].name, val.target[idx].value);
+          mySheet.setValue(mySheet.getFocusedRow(), val.target[idx].name, val.target[idx].value);
         }
   }
 

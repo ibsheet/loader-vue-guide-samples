@@ -7,7 +7,7 @@ export const TypeOption =
       Cfg: {
         SearchMode: 0,
         CustomScroll: 1,
-        // Style: 'IBMR'
+        Style: 'IBMT'
       },
       Def: { Col: { RelWidth: 1 } },
       LeftCols: [

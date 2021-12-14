@@ -28,7 +28,7 @@ import loader from '@ibsheet/loader'
 // const { data, options } = SheetSampleData[1]
 
 export const Sheet = {
-  state: () => ({sheet:[], data: [], options:[], setting_data:set_data, model:{a:'bb'}}),
+  state: () => ({sheet:[], data: [], options:[], setting_data:set_data}),
   mutations: {
     
     [CREATE_SHEET.CREATE_SHEET](state, pageName) {

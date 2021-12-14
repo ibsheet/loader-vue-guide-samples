@@ -26,41 +26,19 @@
   </div>
     <div class="row no-wrap">
       <div id='sheetContainer' style="min-width: 400px"></div>
-      <q-card v-if="pageName == 'Form'" class="my-card" style="min-width: 300px; padding: 10px; margin: 0px 10px;">
+      <q-card v-if="pageName == 'Form'" class="my-card" style="min-width: 300px;max-width:350px; padding: 10px; margin: 0px 10px;">
         <div align="center">
-          <div  class="text-h4">
+          <div  class="text-h4" style="margin:5px">
             상세 보기
           </div>
           <q-form class="q-gutter-md"
             @submit="changeVal(pageName, sheetObj, $event)"
-            @reset="onReset"
           >
-            <q-input
-              filled
-              v-model="model"
-              name="sName"
-            />
-
-            <q-input
-              filled
-              v-model="model2"
-              name="sAge"
-            />
-            <q-input
-              filled
-              v-model="model3"
-              name="sPosi"
-            />
-            <q-input
-              filled
-              v-model="model4"
-              name="sPrice"
-            />
-            <q-input
-              filled
-              v-model="model5"
-              name="sDepart"
-            />
+            <input name="sName" class="q-field__input" style="width:90%;height:56px;background:rgba(0, 0, 0, 0.05); padding:10px">
+            <input name="sAge" class="q-field__input" style="width:90%;height:56px;background:rgba(0, 0, 0, 0.05); padding:10px">
+            <input name="sPosi" class="q-field__input" style="width:90%;height:56px;background:rgba(0, 0, 0, 0.05); padding:10px">
+            <input name="sPrice" class="q-field__input" style="width:90%;height:56px;background:rgba(0, 0, 0, 0.05); padding:10px">
+            <input name="sDepart" class="q-field__input" style="width:90%;height:56px;background:rgba(0, 0, 0, 0.05); padding:10px">
             <div>
               <q-btn label="수정" type="submit" color="secondary"/>
               <q-btn label="삭제" type="reset" color="secondary" flat class="q-ml-sm" />
@@ -93,24 +71,25 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
-  
+    <div>{{testComp}}</div>
 </template>
 
 <script>
-import { computed } from "vue";
+import { computed, h } from "vue";
 import { mapState, useStore } from "vuex";
 import { ref } from 'vue'
 
 import { getItemList, changeOpt } from '../store/modules/function'
+import { dataFunction } from '../samples/dataload/fun'
 
 export default {
-  setup(props) {
+  setup() {
     const store = useStore();
     const pageName = computed(() => store.state.Page.name);
     const sheetObj = computed(() => store.state.Sheet.sheet);
     const getters = computed(() => store.getters);
     // 시트 생성만 여기서
-    const createSheet = (sampleData) => store.commit('CREATE_SHEET', sampleData);
+    const createSheet = (state, sampleData) => store.commit('CREATE_SHEET', state, sampleData);
     const reomoveSheet = (id) => store.commit("REMOVE_SAMPLE", id);
 
     const dataLoad = (cnt) => store.commit("CHANGE_DATA", cnt);
@@ -121,13 +100,10 @@ export default {
     const model = ref(null);
     const model2 = ref(null);
     const model3 = ref(null);
-    const model4 = ref(null);
-    const model5 = ref(null);
     const medium = ref(false);
+    const testComp = dataFunction();
 
-    console.log(props.testModel);
-
-    return {medium, model, model2, model3, model4, model5, val, optList, createSheet, reomoveSheet, options, chgOpt, pageName, getters, sheetObj, dataLoad, setTemp(){
+    return {testComp, medium, model, model2, model3, val, optList, createSheet, reomoveSheet, options, chgOpt, pageName, getters, sheetObj, dataLoad, setTemp(){
         switch (this.pageName) {
           case "Merge" :
           case "Tree" :
@@ -137,6 +113,11 @@ export default {
         }
       }
     };
+  },
+  render(){
+    
+    // const { h } = VueElement
+    return h('div', this.testComp)
   },
   computed: {
     ...mapState(['sheet']),
@@ -188,6 +169,11 @@ export default {
           break;
       }
     },
+  },
+  data () {
+    return{
+      data:"test"
+    }
   }
 
 }

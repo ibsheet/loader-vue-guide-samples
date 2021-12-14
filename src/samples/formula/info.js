@@ -13,7 +13,7 @@ export const FormulaOption =
       Cfg: {
         SearchMode: 0,
         CustomScroll: 1,
-        // Style: 'IBMR'
+        Style: 'IBMT'
       },
       LeftCols: [
         {

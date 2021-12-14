@@ -4,11 +4,11 @@ export const MergeOption =
   [
 			{
 			options: {
-				Cfg: {
-					SearchMode: 0,
-					CustomScroll: 1,
-					// Style: 'IBMR'
-				},
+        Cfg: {
+          SearchMode: 0,
+          CustomScroll: 1,
+          Style: 'IBMT'
+        },
 				LeftCols: [
 					{
 						Header: ['No', 'No'],

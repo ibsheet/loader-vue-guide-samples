@@ -7,6 +7,7 @@ export const FormOption =
       Cfg: {
         SearchMode: 0,
         CustomScroll: 1,
+        Style: 'IBMT'
       },
       LeftCols: [
         {
