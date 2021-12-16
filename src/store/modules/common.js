@@ -1,25 +1,14 @@
 import { CHANGE_SAMPLE } from '../mutation-types';
-import { dataFunction } from '../../samples/dataload/fun'
-// import { Function } from '../../samples/merge/function'
 
+// 샘플별 필요한 내용들 공통으로 처리하기 위한 구간.
 export const Page = {
-  // state에 시트에 필요한 정보를 담아둠.
-  state: () => ({name: '', data_load:dataFunction, tag:''}),
+  state: () => ({name: '', tag:''}),
   mutations: {
     [CHANGE_SAMPLE.CHANGE_SAMPLE](state, value) {
       state.name = value;
     },
-    [CHANGE_SAMPLE.CHANGE_TEMP] (state, value) {
-      switch(value) {
-        case "Merge" :
-          state.tag = state.merge();
-          break;
-        case "DataLoad" :
-          state.tag = state.data_load();
-          break;
-      }
-      console.warn(state.tag);
-      return state.tag;
+    [CHANGE_SAMPLE.CHANGE_TEMP] () {
+
     }
   },
   getters: {

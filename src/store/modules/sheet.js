@@ -24,9 +24,8 @@ import { set_data } from '../../samples/dataload/data'
 
 import loader from '@ibsheet/loader'
 
-// import { SheetSampleData } from '../../samples/text'
-// const { data, options } = SheetSampleData[1]
 
+// 시트 생성 및 각 샘플별 필요한 생성옵션 및 데이터 생성 구간.
 export const Sheet = {
   state: () => ({sheet:[], data: [], options:[], setting_data:set_data}),
   mutations: {
@@ -74,7 +73,7 @@ export const Sheet = {
           state.data = TypeData;
           break;
       }
-
+      // 렌더 후 조회.
       const eventBinding = (name, sheet) => {
         switch(name) {
           case 'Type':
@@ -110,6 +109,7 @@ export const Sheet = {
             // data : sheet.data
           }).then((sheet) => {
             state.sheet.push(sheet);
+            // 폼 태그에서 input 에 필요한 정보 세팅.
             if (pageName == "Form") {
               sheet.bind('onFocus', evt => {
                 document.getElementsByName('sName')[0].value = evt.row['sName'];

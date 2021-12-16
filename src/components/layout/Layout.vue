@@ -17,12 +17,12 @@
         <q-route-tab to="/type" label="Type" />
         <q-route-tab to="/merge" label="Merge" />
         <q-route-tab to="/tree" label="Tree" />
+        <q-route-tab to="/dataload" label="DataLoad" />
         <q-route-tab to="/subsum" label="Subsum" />
         <q-route-tab to="/formula" label="Formula" />
         <q-route-tab to="/form" label="Form" />
         <q-route-tab to="/multiple" label="Multiple" />
         <q-route-tab to="/dialog" label="Dialog" />
-        <q-route-tab to="/dataload" label="DataLoad" />
       </q-tabs>
     </q-header>
     
@@ -46,7 +46,7 @@
       <q-toolbar>
         <q-toolbar-title>
           <q-avatar>
-            <q-btn round dense flat :ripple="false" :icon="fasTable" size="sm" color="white" class="q-mr-sm" no-caps />
+            <q-btn round dense flat :ripple="false" :icon="fasTable" size="sm" color="white" class="q-mr-sm" no-caps @click="changeRouter('/')" />
           </q-avatar>
           <span>IBSheet8</span>
         </q-toolbar-title>
@@ -70,8 +70,6 @@ export default {
     const pageName = computed(() => store.state.Page.name);
     const sheetObj = computed(() => store.state.Sheet.sheet);
     const changePage = (title) => store.commit("CHANGE_SAMPLE", title);
-    // const createSheet = (sampleData) => store.commit('CREATE_SHEET', sampleData);
-    // const sampleTemplate = (title) => store.commit("CHANGE_SAMPLE", pageName.value = title);
     // 삭제만 Layout에서 관리
     const reomoveSheet = (id) => store.commit("REMOVE_SAMPLE", id);
 
@@ -79,20 +77,16 @@ export default {
     return {
       fabGithub,
       fasTable,
-      pageName, changePage,
+      pageName, 
+      changePage,
       reomoveSheet,
       sheetObj
     }
   },
-  data() {
-    return {
-      }
-  }, 
   // 라우터 사용
   watch: {
-    '$route.name': function (val/* , old */) {
+    '$route.name': function (val) {
       // route 경로 변경시 state에 있는 name을 route name로 세팅.
-      //페이지 이름 변경용.(필요할까 이게..?)
       this.changePage(val);
       // 라우터 변경시 시트 삭제.
       if (this.sheetObj.length > 0) {
@@ -104,10 +98,7 @@ export default {
     changeRouter(name) {
       this.$router.push(`${name}`);
     },
-  },
-  template: {
-
-  }  
+  } 
 }
 </script>
 

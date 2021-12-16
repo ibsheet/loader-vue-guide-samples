@@ -1,3 +1,4 @@
+// 4개의 샘플에서 필요한 option 들을 받기 위한 구간.
 const getItemList = (pageName) => {
   const itemList = {};
   switch(pageName) {
@@ -54,9 +55,9 @@ const getItemList = (pageName) => {
   return itemList
 };
 
-
+// select 값 변경시 호출.
 const changeOpt = (pageName, sheetObj, val, val2, val3) => {
-  const mySheet = eval(sheetObj[0].id);
+  const mySheet = eval(sheetObj[0].id); // state가 proxy로 관리 되고있음.
   const color = {
     subsum: '#f08080',
     cumul: '#78c7fa',
