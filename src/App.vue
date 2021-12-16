@@ -16,7 +16,7 @@ export default {
       registry: [
         {
           name: 'ibsheet',
-          baseUrl: '/ibsheet',
+          baseUrl: 'https://demo.ibleaders.com/ibsheet/v8/samples/customer-sample/assets/ibsheet/',
           locales: ['en', 'ko'],
           theme: 'mint',
           // plugins: ['excel', 'common', 'dialog'],
