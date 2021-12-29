@@ -8,7 +8,7 @@
           <q-avatar>
             <q-btn round dense flat :ripple="false" :icon="fasTable" size="sm" color="white" class="q-mr-sm" no-caps @click="changeRouter('/')"/>
           </q-avatar>
-          <span> IBSheet8 </span>
+          <span style="vertical-align:middle"> IBSheet8 </span>
         </q-toolbar-title>
       </q-toolbar>
 
