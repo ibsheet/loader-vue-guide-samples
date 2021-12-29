@@ -8,7 +8,7 @@ import Sheet from '@/views/Sheet';
 const Router = createRouter({
   history: createWebHistory(),
   routes: [
-    // vuex를 사용하여 하나의 component로 관리(Home About 두개는 일단 고민...)
+    // vuex를 사용하여 하나의 component로 관리
     {path: '/', name: 'Home', component: Home},
     {path: '/about', name: 'About', component: About},
     {path: '/type', name: 'Type', component: Sheet},

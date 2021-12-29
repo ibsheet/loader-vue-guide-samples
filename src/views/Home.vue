@@ -18,7 +18,7 @@ export default {
         // 메인 화면에 보여줄 정보들.
         sampleInfo: [
             {title:'Type', img:require('../assets/type.png'), label:'컬럼 타입', level:'기본기능', class:'secondary'},
-            {title:'Merge', img:require('../assets/subsum.png'), label:' 자동 머지', level:'기본기능', class:'secondary'},
+            {title:'Merge', img:require('../assets/merge.png'), label:' 자동 머지', level:'기본기능', class:'secondary'},
             {title:'Tree', img:require('../assets/tree.png'), label:'트리 기능', level:'기본기능', class:'secondary'},
             {title:'Dataload', img:require('../assets/dataload.png'), label:'대용량 조회', level:'기본기능', class:'secondary'},
             {title:'SubSum', img:require('../assets/subsum.png'), label:'소계 기능', level:'고급기능', class:'primary'},

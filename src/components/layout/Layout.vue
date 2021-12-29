@@ -25,7 +25,7 @@
         <q-route-tab to="/dialog" label="Dialog" />
       </q-tabs>
     </q-header>
-    
+
     <q-page-container>
       <div class="makeStyles-content">
         <div class="makeStyles-header">
@@ -33,7 +33,10 @@
           <span class="makeStyles-title">IBSheet8</span>
           <p class="makeStyles-subTitle">Loader를 사용하여 IBSheet8의 대용량 조회, 높은 자유도, 다양한 렌더링 방식 등 다양한 기능을 Vue 환경에서 제공합니다.</p>
           <q-btn icon="fab fa-github-square" color="secondary" label="GitHub" type="a" href='https://github.com/ibsheet/loader-vue-guide-samples' target="__blank" style="width:150px; margin:5px;"/>
-          <q-btn color="secondary" label="SandBox" type="a" href="https://codesandbox.io/s/long-resonance-i9llr?file=/README.md" target="__blank" style="width:150px; margin:5px;" />
+          <q-btn color="secondary" label="" type="a" href="https://codesandbox.io/s/long-resonance-i9llr?file=/README.md" target="__blank" style="width:150px; margin:5px;">
+            <codesandbox-icon size="1.5x" style="margin:5px;" />
+            SandBox
+          </q-btn>
         </div>
       </div>
       <div class="makeStyles-root-grid">
@@ -60,6 +63,7 @@
 import { fabGithub, fasTable } from '@quasar/extras/fontawesome-v5';
 import { computed } from "vue";
 import { useStore } from "vuex";
+import { CodesandboxIcon } from '@zhuowenli/vue-feather-icons'
 
 export default {
   name: 'Layout',
@@ -73,11 +77,10 @@ export default {
     // 삭제만 Layout에서 관리
     const reomoveSheet = (id) => store.commit("REMOVE_SAMPLE", id);
 
-
     return {
       fabGithub,
       fasTable,
-      pageName, 
+      pageName,
       changePage,
       reomoveSheet,
       sheetObj
@@ -98,7 +101,10 @@ export default {
     changeRouter(name) {
       this.$router.push(`${name}`);
     },
-  } 
+  },
+  components: {
+    CodesandboxIcon
+  }
 }
 </script>
 

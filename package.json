@@ -10,9 +10,11 @@
   "dependencies": {
     "@ibsheet/loader": "latest",
     "@quasar/extras": "^1.0.0",
+    "@zhuowenli/vue-feather-icons": "^5.0.2",
     "core-js": "^3.6.5",
+    "feather-icons": "^4.28.0",
     "quasar": "^2.0.0",
-    "vue": "^3.0.0",
+    "vue": "^3.2.26",
     "vue-router": "4",
     "vuex": "^4.0.2"
   },
