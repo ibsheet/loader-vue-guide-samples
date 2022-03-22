@@ -75,14 +75,14 @@ export default {
     const sheetObj = computed(() => store.state.Sheet.sheet);
     const changePage = (title) => store.commit("CHANGE_SAMPLE", title);
     // 삭제만 Layout에서 관리
-    const reomoveSheet = (id) => store.commit("REMOVE_SAMPLE", id);
+    const removeSheet = (id) => store.commit("REMOVE_SAMPLE", id);
 
     return {
       fabGithub,
       fasTable,
       pageName,
       changePage,
-      reomoveSheet,
+      removeSheet,
       sheetObj
     }
   },
@@ -93,7 +93,7 @@ export default {
       this.changePage(val);
       // 라우터 변경시 시트 삭제.
       if (this.sheetObj.length > 0) {
-        this.reomoveSheet(this.sheetObj);
+        this.removeSheet(this.sheetObj);
       }
     }
   },

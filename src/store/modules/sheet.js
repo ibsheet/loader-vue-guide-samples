@@ -1,7 +1,6 @@
 import { CREATE_SHEET } from '../mutation-types';
 import { REMOVE_SAMPLE } from '../mutation-types';
 import { CHANGE_SAMPLE } from '../mutation-types';
-
 import { MultipleOptions } from '../../samples/multiple/info'
 import { MultipleData } from '../../samples/multiple/data'
 import { DialogOption } from '../../samples/dialog/info'
@@ -29,46 +28,46 @@ import loader from '@ibsheet/loader'
 export const Sheet = {
   state: () => ({sheet:[], data: [], options:[], setting_data:set_data}),
   mutations: {
-    
+
     [CREATE_SHEET.CREATE_SHEET](state, pageName) {
       switch (pageName) {
-        case "SubSum" :
+        case 'SubSum' :
           state.options = SubSumOption;
           state.data = SubSumData;
           break;
-        case "Type" : 
+        case 'Type' :
           state.options = TypeOption;
           state.data = TypeData;
           break;
-        case "Tree" : 
+        case 'Tree' :
           state.options = TreeOption;
           state.data = TreeData;
           break;
-        case "Merge" : 
+        case 'Merge' :
           state.options = MergeOption;
           state.data = MergeData;
           break;
-        case "Formula" : 
+        case 'Formula' :
           state.options = FormulaOption;
           state.data = FormulaData;
           break;
-        case "Multiple" : 
+        case 'Multiple' :
             state.options = MultipleOptions;
             state.data = MultipleData;
           break;
-        case "Dialog" : 
+        case 'Dialog' :
           state.options = DialogOption;
           state.data = DialogData;
           break;
-        case "DataLoad" : 
+        case 'DataLoad' :
           state.options = DataLoadOption;
           // state.data = [{data:state.data}];
           break;
-        case "Form" : 
+        case 'Form' :
           state.options = FormOption;
           state.data = FormData;
           break;
-        case "ModalOpen" : 
+        case 'ModalOpen' :
           state.options = ModalOption;
           state.data = TypeData;
           break;
@@ -76,6 +75,32 @@ export const Sheet = {
       // 렌더 후 조회.
       const eventBinding = (name, sheet) => {
         switch(name) {
+          case 'Form':
+            // 폼 태그에서 input 에 필요한 정보 세팅.
+            sheet.options.Events = {
+              onRenderFirstFinish: evt => {
+                if (state.data.length > 0) {
+                  state.data.map(sheetData =>{
+                    evt.sheet.loadSearchData(sheetData);
+                  })
+                }
+              },
+              onFocus: evt => {
+                document.getElementsByName('sName')[0].value = evt.row['sName'];
+                document.getElementsByName('sAge')[0].value = evt.row['sAge'];
+                document.getElementsByName('sPosi')[0].value = evt.row['sPosi'];
+                document.getElementsByName('sPrice')[0].value = evt.row['sPrice'];
+                document.getElementsByName('sDepart')[0].value = evt.row['sDepart'];
+              },
+              onBlur: () => {
+                document.getElementsByName()[0].value = '';
+                document.getElementsByName()[0].value = '';
+                document.getElementsByName()[0].value = '';
+                document.getElementsByName()[0].value = '';
+                document.getElementsByName()[0].value = '';
+              }
+            }
+            return sheet;
           case 'Type':
           case 'Formula':
           case 'Merge':
@@ -84,7 +109,6 @@ export const Sheet = {
           case 'Multiple':
           case 'Dialog':
           case 'DataLoad':
-          case 'Form':
           case 'ModalOpen':
             sheet.options.Events = {
               onRenderFirstFinish: evt => {
@@ -103,34 +127,15 @@ export const Sheet = {
         state.options.map((sheet, idx) => {
           eventBinding(pageName, sheet);
           loader.createSheet({
-            id: sheet.id ? sheet.id : 'sheet' + idx,
+            id: sheet.id ? sheet.id : 'sheet' + (state.options.length > 1 ? (idx + 1) : ''),
             el: sheet.el,
             options : sheet.options ,
             // data : sheet.data
-          }).then((sheet) => {
+          }).then(sheet => {
             state.sheet.push(sheet);
-            // 폼 태그에서 input 에 필요한 정보 세팅.
-            if (pageName == "Form") {
-              sheet.bind('onFocus', evt => {
-                document.getElementsByName('sName')[0].value = evt.row['sName'];
-                document.getElementsByName('sAge')[0].value = evt.row['sAge'];
-                document.getElementsByName('sPosi')[0].value = evt.row['sPosi'];
-                document.getElementsByName('sPrice')[0].value = evt.row['sPrice'];
-                document.getElementsByName('sDepart')[0].value = evt.row['sDepart'];
-              });
-              sheet.bind('onBlur', evt => {
-                evt.row;
-                document.getElementsByName()[0].value = '';
-                document.getElementsByName()[0].value = '';
-                document.getElementsByName()[0].value = '';
-                document.getElementsByName()[0].value = '';
-                document.getElementsByName()[0].value = '';
-              });
-            }
           });
         });
       }
-
     },
     [REMOVE_SAMPLE.REMOVE_SAMPLE](state, sObj) {
       if (sObj.length > 0 && typeof(sObj) != 'string') {

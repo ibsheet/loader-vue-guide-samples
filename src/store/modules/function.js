@@ -2,48 +2,47 @@
 const getItemList = (pageName) => {
   const itemList = {};
   switch(pageName) {
-    // 
-    case "Merge" :
-      itemList.item = 
+    case 'Merge' :
+      itemList.item =
         [{label:'HeaderMerge: 0', value:0},
-           {label:'HeaderMerge: 1', value:1}, 
-           {label:'HeaderMerge: 2', value:2}, 
+           {label:'HeaderMerge: 1', value:1},
+           {label:'HeaderMerge: 2', value:2},
            {label:'HeaderMerge: 3', value:3},
            {label:'HeaderMerge: 4', value:4},
            {label:'HeaderMerge: 5', value:5},
            {label:'HeaderMerge: 6', value:6}];
-      
-      itemList.item2 = 
+
+      itemList.item2 =
         [{label:'DataMerge: 0', value:0},
-          {label:'DataMerge: 1', value:1}, 
-          {label:'DataMerge: 2', value:2}, 
+          {label:'DataMerge: 1', value:1},
+          {label:'DataMerge: 2', value:2},
           {label:'DataMerge: 3', value:3},
           {label:'DataMerge: 4', value:4},
           {label:'DataMerge: 5', value:5},
           {label:'DataMerge: 6', value:6}];
-      itemList.item3 = 
+      itemList.item3 =
         [{label:'PrevColumnMerge: 0', value:0},
-          {label:'PrevColumnMerge: 1', value:1}, 
-          {label:'PrevColumnMerge: 2', value:2}, 
+          {label:'PrevColumnMerge: 1', value:1},
+          {label:'PrevColumnMerge: 2', value:2},
           {label:'PrevColumnMerge: 3', value:3}];
       break;
-    case "Tree" :
-      itemList.item = 
+    case 'Tree' :
+      itemList.item =
         [{label:'showTreeLevel: 1', value:1},
-          {label:'showTreeLevel: 2', value:2}, 
-          {label:'showTreeLevel: 3', value:3}, 
+          {label:'showTreeLevel: 2', value:2},
+          {label:'showTreeLevel: 3', value:3},
           {label:'showTreeLevel: 4', value:4}];
       break;
-    case "DataLoad" :
-      itemList.item = 
+    case 'DataLoad' :
+      itemList.item =
       [{label:'100,000 건', value:100000},
-        {label:'200,000 건', value:200000}, 
+        {label:'200,000 건', value:200000},
         {label:'300,000 건', value:300000}];
       break;
-    case "SubSum" :
-      itemList.item = 
+    case 'SubSum' :
+      itemList.item =
       [{label:'단일 컬럼 소계', value:'subsum'},
-        {label:'단일 컬럼 소계 / 누계', value:'cumulate'}, 
+        {label:'단일 컬럼 소계 / 누계', value:'cumulate'},
         {label:'다중 컬럼 소계', value:'multisubsum'},
         {label:'다중 컬럼 소계 / 누계', value:'multicumulate'},
         {label:'소계행 삭제', value:'removesubsum'}
@@ -51,7 +50,7 @@ const getItemList = (pageName) => {
       break;
   }
 
-  
+
   return itemList
 };
 
@@ -91,16 +90,16 @@ const changeOpt = (pageName, sheetObj, val, val2, val3) => {
   ];
 
   switch (pageName) {
-    case "Tree" :
+    case 'Tree' :
       mySheet.showTreeLevel(val.value);
       break;
-    case "Merge" : 
+    case 'Merge' :
         if (val) val = val.value;
         if (val2) val2 = val2.value;
         if (val3) val3 = val3.value;
         mySheet.setAutoMerge({headerMerge: val, dataMerge: val2, prevColumnMerge: val3})
       break;
-    case "SubSum" : 
+    case 'SubSum' :
         switch(val.value) {
           case 'subsum':
             mySheet.makeSubTotal([
@@ -222,7 +221,7 @@ const changeOpt = (pageName, sheetObj, val, val2, val3) => {
             mySheet.removeSubTotal();
         }
       break;
-    case "DataLoad" : 
+    case 'DataLoad' :
         for (let i = 0; i < val.value; i++) {
           data.push({
             sCompany: company[Math.floor(Math.random() * 10)],
@@ -233,13 +232,13 @@ const changeOpt = (pageName, sheetObj, val, val2, val3) => {
             sSatisfaction: Math.floor(Math.random() * (100 - 50 + 1) + 50),
           });
         }
-      
+
         mySheet.loadSearchData({data:data});
       break;
-    case "Form" : 
-        for (let idx = 0; idx < val.target.length; idx++) {
-          mySheet.setValue(mySheet.getFocusedRow(), val.target[idx].name, val.target[idx].value);
-        }
+    case 'Form' :
+      for (let idx = 0; idx < val.target.length; idx++) {
+        mySheet.setValue(mySheet.getFocusedRow(), val.target[idx].name, val.target[idx].value);
+      }
   }
 
 }

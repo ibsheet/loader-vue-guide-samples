@@ -12,7 +12,7 @@ export const Page = {
     }
   },
   getters: {
-    //state 에 담긴 name 기준으로 샘플 분리.
+    // state 에 담긴 name 기준으로 샘플 분리.
     pageInfo(state) {
       return state.name;
     }
