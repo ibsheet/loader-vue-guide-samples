@@ -13,16 +13,16 @@
       </q-toolbar>
 
       <q-tabs align="center">
-        <q-route-tab to="/" label="Home" />
-        <q-route-tab to="/type" label="Type" />
-        <q-route-tab to="/merge" label="Merge" />
-        <q-route-tab to="/tree" label="Tree" />
-        <q-route-tab to="/dataload" label="DataLoad" />
-        <q-route-tab to="/subsum" label="Subsum" />
-        <q-route-tab to="/formula" label="Formula" />
-        <q-route-tab to="/form" label="Form" />
-        <q-route-tab to="/multiple" label="Multiple" />
-        <q-route-tab to="/dialog" label="Dialog" />
+        <q-route-tab to="/v8/demo/vue" label="Home" />
+        <q-route-tab to="/v8/demo/vue/type" label="Type" />
+        <q-route-tab to="/v8/demo/vue/merge" label="Merge" />
+        <q-route-tab to="/v8/demo/vue/tree" label="Tree" />
+        <q-route-tab to="/v8/demo/vue/dataload" label="DataLoad" />
+        <q-route-tab to="/v8/demo/vue/subsum" label="Subsum" />
+        <q-route-tab to="/v8/demo/vue/formula" label="Formula" />
+        <q-route-tab to="/v8/demo/vue/form" label="Form" />
+        <q-route-tab to="/v8/demo/vue/multiple" label="Multiple" />
+        <q-route-tab to="/v8/demo/vue/dialog" label="Dialog" />
       </q-tabs>
     </q-header>
 

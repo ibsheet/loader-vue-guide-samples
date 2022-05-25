@@ -7,5 +7,6 @@ module.exports = {
   },
   transpileDependencies: [
     'quasar'
-  ]
+  ],
+  publicPath: "/v8/demo/vue"
 }

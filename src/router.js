@@ -8,16 +8,16 @@ const Router = createRouter({
   history: createWebHistory(),
   routes: [
     // vuex를 사용하여 하나의 component로 관리
-    {path: '/', name: 'Home', component: Home},
-    {path: '/type', name: 'Type', component: Sheet},
-    {path: '/merge', name: 'Merge', component: Sheet},
-    {path: '/tree', name: 'Tree', component: Sheet},
-    {path: '/subsum', name: 'SubSum', component: Sheet},
-    {path: '/formula', name: 'Formula', component: Sheet},
-    {path: '/multiple', name: 'Multiple', component: Sheet},
-    {path: '/dataload', name: 'DataLoad', component: Sheet},
-    {path: '/dialog', name: 'Dialog', component: Sheet},
-    {path: '/form', name: 'Form', component: Sheet},
+    {path: '/v8/demo/vue', name: 'Home', component: Home},
+    {path: '/v8/demo/vue/type', name: 'Type', component: Sheet},
+    {path: '/v8/demo/vue/merge', name: 'Merge', component: Sheet},
+    {path: '/v8/demo/vue/tree', name: 'Tree', component: Sheet},
+    {path: '/v8/demo/vue/subsum', name: 'SubSum', component: Sheet},
+    {path: '/v8/demo/vue/formula', name: 'Formula', component: Sheet},
+    {path: '/v8/demo/vue/multiple', name: 'Multiple', component: Sheet},
+    {path: '/v8/demo/vue/dataload', name: 'DataLoad', component: Sheet},
+    {path: '/v8/demo/vue/dialog', name: 'Dialog', component: Sheet},
+    {path: '/v8/demo/vue/form', name: 'Form', component: Sheet},
   ]
 });
 
