@@ -33,7 +33,7 @@
           <span class="makeStyles-title">IBSheet8</span>
           <p class="makeStyles-subTitle">Loader를 사용하여 IBSheet8의 대용량 조회, 높은 자유도, 다양한 렌더링 방식 등 다양한 기능을 Vue 환경에서 제공합니다.</p>
           <q-btn icon="fab fa-github-square" color="secondary" label="GitHub" type="a" href='https://github.com/ibsheet/loader-vue-guide-samples' target="__blank" style="width:150px; margin:5px;"/>
-          <q-btn color="secondary" label="" type="a" href="https://codesandbox.io/s/long-resonance-i9llr?file=/README.md" target="__blank" style="width:150px; margin:5px;">
+          <q-btn color="secondary" label="" type="a" href="https://codesandbox.io/s/github/ibsheet/loader-vue-guide-samples/tree/main?file=/src/main.js" target="__blank" style="width:150px; margin:5px;">
             <codesandbox-icon size="1.5x" style="margin-right:5px;" />
             SandBox
           </q-btn>
