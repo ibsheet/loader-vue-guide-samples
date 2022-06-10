@@ -2,7 +2,7 @@
 
 ### 사용기술
 
-👉 `@ibsheet/loader: 1.1.11` <br/>
+👉 `@ibsheet/loader: 1.1.15` <br/>
 👉 `javascript, vue3, vue-router4, vuex, quasar`
 
 ### quasar
@@ -13,4 +13,7 @@
 ### ✨설치방법
 
 1. `clone` 을 받는다.
-2. `yarn` or `npm install`
+2. 해당프로젝트는 yarn 을 기준으로 만들어졌습니다. yarn 을 설치해줍니다. `npm install --global yarn`
+3. `yarn`
+4. `yarn build` // build 파일 생성됨.
+5. `yarn serve`
