@@ -130,8 +130,8 @@ export const Sheet = {
             id: sheet.id ? sheet.id : 'sheet' + (state.options.length > 1 ? (idx + 1) : ''),
             el: sheet.el,
             options : sheet.options ,
-            // data : sheet.data
           }).then(sheet => {
+            // 주의: 해당 구간에서 데이터 조회를 하면 안됩니다. 데이터 조회는 onRenderFirstFinish 이벤트에서 실행해야합니다.
             state.sheet.push(sheet);
           });
         });
