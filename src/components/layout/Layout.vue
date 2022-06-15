@@ -13,16 +13,7 @@
       </q-toolbar>
 
       <q-tabs align="center">
-        <q-route-tab to="/v8/demo/vue" label="Home" />
-        <q-route-tab to="/v8/demo/vue/type" label="Type" />
-        <q-route-tab to="/v8/demo/vue/merge" label="Merge" />
-        <q-route-tab to="/v8/demo/vue/tree" label="Tree" />
-        <q-route-tab to="/v8/demo/vue/dataload" label="DataLoad" />
-        <q-route-tab to="/v8/demo/vue/subsum" label="Subsum" />
-        <q-route-tab to="/v8/demo/vue/formula" label="Formula" />
-        <q-route-tab to="/v8/demo/vue/form" label="Form" />
-        <q-route-tab to="/v8/demo/vue/multiple" label="Multiple" />
-        <q-route-tab to="/v8/demo/vue/dialog" label="Dialog" />
+        <q-route-tab v-for='(info, idx) in sampleInfo' :key='idx' :to="info.to" :label="info.title" />
       </q-tabs>
     </q-header>
 
@@ -63,7 +54,9 @@
 import { fabGithub, fasTable } from '@quasar/extras/fontawesome-v5';
 import { computed } from "vue";
 import { useStore } from "vuex";
-import { CodesandboxIcon } from '@zhuowenli/vue-feather-icons'
+import { CodesandboxIcon } from '@zhuowenli/vue-feather-icons';
+
+const url = process.env.NODE_ENV === 'production' ? '/v8/demo/vue/' : '/';
 
 export default {
   name: 'Layout',
@@ -101,6 +94,22 @@ export default {
     changeRouter(name) {
       this.$router.push(`${name}`);
     },
+  },
+  data() {
+    return {
+      // 메인 화면에 보여줄 정보들.
+      sampleInfo: [
+        {to: url + 'type', title:'Type'},
+        {to: url + 'merge', title:'Merge'},
+        {to: url + 'tree', title:'Tree'},
+        {to: url + 'dataload', title:'Dataload'},
+        {to: url + 'subsum', title:'SubSum'},
+        {to: url + 'formula', title:'Formula'},
+        {to: url + 'form', title:'Form'},
+        {to: url + 'multiple', title:'Multiple'},
+        {to: url + 'dialog', title:'Dialog'}
+      ]
+    }
   },
   components: {
     CodesandboxIcon

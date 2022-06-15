@@ -8,5 +8,5 @@ module.exports = {
   transpileDependencies: [
     'quasar'
   ],
-  publicPath: "/v8/demo/vue"
+  publicPath: process.env.NODE_ENV === 'production' ? '/v8/demo/vue' : '/'
 }
