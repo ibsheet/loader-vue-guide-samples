@@ -7,6 +7,7 @@ export const TreeOption =
       Cfg: {
         SearchMode: 0,
         HeaderMerge: 3,
+        MainCol: 'Sol',
         CustomScroll: 1,
           Style: 'IBMT'
         },
