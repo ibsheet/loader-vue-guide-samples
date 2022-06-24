@@ -7,19 +7,19 @@
     <!-- Select 를 사용하여 옵션 변경을 위한 Select들. -->
     <div class="q-pa-md" v-if="setTemp()">
     <div class="q-gutter-md row no-wrap center">
-      <q-select v-model="model" :options="val.item" transition-show="jump-up" transition-hide="jump-up" style="width: 200px"
+      <q-select v-model="model" label="Select Opiton" :options="val.model" transition-show="jump-up" transition-hide="jump-up" style="width: 200px"
       :option-value="opt => Object(opt) === opt && 'value' in opt ? opt.value : null"
         @update:model-value="(opt) => (
           //값이 변경시 호출하는 function
           changeVal(pageName, sheetObj, opt, model2, model3)
         )"
       />
-      <q-select v-if="pageName == 'Merge'" v-model="model2" :options="val.item2" transition-show="jump-up" transition-hide="jump-up" style="width: 200px"
+      <q-select v-if="pageName == 'Merge'" v-model="model2" label="Select Opiton" :options="val.model2" transition-show="jump-up" transition-hide="jump-up" style="width: 200px"
       :option-value="opt => Object(opt) === opt && 'value' in opt ? opt.value : null"
       @update:model-value="(opt) => (
           changeVal(pageName, sheetObj, model, opt, model3)
         )"/>
-      <q-select v-if="pageName == 'Merge'" v-model="model3" :options="val.item3" transition-show="jump-up" transition-hide="jump-up" style="width: 200px"
+      <q-select v-if="pageName == 'Merge'" v-model="model3" label="Select Opiton" :options="val.model3" transition-show="jump-up" transition-hide="jump-up" style="width: 200px"
       :option-value="opt => Object(opt) === opt && 'value' in opt ? opt.value : null"
       @update:model-value="(opt) => (
           changeVal(pageName, sheetObj, model, model2, opt)
