@@ -28,9 +28,11 @@ import loader from '@ibsheet/loader'
 export const Sheet = {
   state: () => ({sheet:[], data: [], options:[], setting_data:set_data}),
   mutations: {
-
-    [CREATE_SHEET.CREATE_SHEET](state, pageName) {
-      switch (pageName) {
+    
+    //시트 생성 옵션을 객체로 처리하도록 변경. 시트 생성시 필요한 옵션이 있는 경우 옵션으로 처리하기 위함.
+    [CREATE_SHEET.CREATE_SHEET](state, obj) {
+      
+      switch (obj.pageName) {
         case 'SubSum' :
           state.options = SubSumOption;
           state.data = SubSumData;
@@ -61,7 +63,7 @@ export const Sheet = {
           break;
         case 'DataLoad' :
           state.options = DataLoadOption;
-          // state.data = [{data:state.data}];
+          state.data = [{data:state.setting_data(obj.opt)}];
           break;
         case 'Form' :
           state.options = FormOption;
@@ -125,7 +127,7 @@ export const Sheet = {
 
       if (state.options.length > 0) {
         state.options.map((sheet, idx) => {
-          eventBinding(pageName, sheet);
+          eventBinding(obj.pageName, sheet);
           loader.createSheet({
             id: sheet.id ? sheet.id : 'sheet' + (state.options.length > 1 ? (idx + 1) : ''),
             el: sheet.el,

@@ -119,28 +119,35 @@ export default {
       case "Tree" :
       case "DataLoad" :
         this.optList = this.options(this.pageName);
+        // Select에 초기값 반영방법.
+        // for (const itemList in this.optList){
+        //   this[itemList] = this.optList[itemList][0].label;
+        // }
         break;
     }
-    this.createSheet(this.pageName);
+    this.createSheet({pageName: this.pageName});
   },
   watch: {
     '$route.name': function (val, old) {
       if (val != old && val != "Home" &&  val != "Multiple") {
         //그 외 메뉴리스트 변경 및 시트 그리는건 전 메뉴 다 호출되어야 함.(홈과 멀티플은 제외!)
         if (val == "DataLoad") this.dataLoad(0);
-        this.createSheet(val);
+        this.createSheet({pageName: val});
         this.optList = getItemList(this.pageName);
         this.val = ref(this.optList);
         this.model = ref(null);
         this.model2 = ref(null);
         this.model3 = ref(null);
+        // for (const itemList in this.optList){
+        //   this[itemList] = this.optList[itemList][0].label;
+        // }
       }
     }
   },
   updated () {
     // 멀티플구조에서만 업데이트 구간에서 create호출(container가 생성된 후에 create 호출해야함.)
     if (this.pageName == "Multiple") {
-      this.createSheet(this.pageName);
+      this.createSheet({pageName: this.pageName});
     }
   },
   methods: {
