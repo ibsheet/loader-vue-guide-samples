@@ -31,8 +31,7 @@ export const Sheet = {
     
     //시트 생성 옵션을 객체로 처리하도록 변경. 시트 생성시 필요한 옵션이 있는 경우 옵션으로 처리하기 위함.
     [CREATE_SHEET.CREATE_SHEET](state, obj) {
-      
-      switch (obj.pageName) {
+      switch (obj.pageName || obj) {
         case 'SubSum' :
           state.options = SubSumOption;
           state.data = SubSumData;
@@ -73,6 +72,7 @@ export const Sheet = {
           state.options = ModalOption;
           state.data = TypeData;
           break;
+
       }
       // 렌더 후 조회.
       const eventBinding = (name, sheet) => {
@@ -95,11 +95,11 @@ export const Sheet = {
                 document.getElementsByName('sDepart')[0].value = evt.row['sDepart'];
               },
               onBlur: () => {
-                document.getElementsByName()[0].value = '';
-                document.getElementsByName()[0].value = '';
-                document.getElementsByName()[0].value = '';
-                document.getElementsByName()[0].value = '';
-                document.getElementsByName()[0].value = '';
+                document.getElementsByName('sName')[0].value = '';
+                document.getElementsByName('sAge')[0].value = '';
+                document.getElementsByName('sPosi')[0].value = '';
+                document.getElementsByName('sPrice')[0].value = '';
+                document.getElementsByName('sDepart')[0].value = '';
               }
             }
             return sheet;
@@ -127,7 +127,7 @@ export const Sheet = {
 
       if (state.options.length > 0) {
         state.options.map((sheet, idx) => {
-          eventBinding(obj.pageName, sheet);
+          eventBinding(obj.pageName || obj, sheet);
           loader.createSheet({
             id: sheet.id ? sheet.id : 'sheet' + (state.options.length > 1 ? (idx + 1) : ''),
             el: sheet.el,

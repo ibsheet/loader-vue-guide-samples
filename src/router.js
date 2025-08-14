@@ -1,7 +1,7 @@
 // vue3 에서 사용하는 router 방식입니다.
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '@/views/Home';
-import Sheet from '@/views/Sheet';
+import Home from '@/views/Home.vue';
+import Sheet from '@/views/Sheet.vue';
 
 const url = process.env.NODE_ENV === 'production' ? '/v8/demo/vue/' : '/';
 

@@ -1,56 +1,29 @@
 {
-  "name": "loader-vue-guide-samples",
-  "version": "0.1.0",
+  "name": "vue-guide-samples",
+  "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@ibsheet/loader": "^1.1.15",
-    "@koa/cors": "^3.3.0",
-    "@koa/router": "^10.1.1",
-    "@quasar/extras": "^1.0.0",
+    "@ibsheet/loader": "file:../loader/dist",
+    "@quasar/extras": "^1.17.0",
+    "@quasar/vite-plugin": "^1.9.0",
     "@zhuowenli/vue-feather-icons": "^5.0.2",
-    "core-js": "^3.6.5",
-    "feather-icons": "^4.28.0",
-    "koa": "^2.13.4",
-    "koa-bodyparser": "^4.3.0",
-    "quasar": "^2.0.0",
-    "vue": "^3.2.26",
-    "vue-router": "4",
-    "vuex": "^4.0.2"
+    "quasar": "^2.18.1",
+    "vue": "^3.5.17",
+    "vue-router": "^4.5.1",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "@vue/compiler-sfc": "^3.0.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0",
-    "sass": "1.32.12",
-    "sass-loader": "^10.1.0",
-    "vue-cli-plugin-quasar": "~4.0.2"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {}
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+    "@vitejs/plugin-vue": "^5.2.4",
+    "sass": "^1.89.2",
+    "sass-embedded": "^1.89.2",
+    "sass-loader": "^16.0.5",
+    "vite": "^6.3.5",
+    "vite-plugin-vue-devtools": "^7.7.7"
+  }
 }

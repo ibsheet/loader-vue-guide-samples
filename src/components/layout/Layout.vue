@@ -62,7 +62,6 @@ export default {
   name: 'Layout',
   setup (props) {
     // vue3 에서는 여기서 다함. lifecycle hook 또한 setup 내부에서 선언하도록 하였습니다
-    console.log(props);
     const store = useStore();
     const pageName = computed(() => store.state.Page.name);
     const sheetObj = computed(() => store.state.Sheet.sheet);

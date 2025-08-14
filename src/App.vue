@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Layout from './components/layout/Layout';
+import Layout from '@/components/layout/Layout.vue';
 import loader from '@ibsheet/loader'
 
 export default {
@@ -16,7 +16,7 @@ export default {
       registry: [
         {
           name: 'ibsheet',
-          baseUrl: 'https://demo.ibleaders.com/ibsheet/v8/samples/customer-sample/assets/ibsheet/',
+          baseUrl: 'https://demo.ibsheet.com/ibsheet/v8/samples/customer-sample/assets/ibsheet/',
           locales: ['en', 'ko'],
           theme: 'mint',
           // plugins: ['excel', 'common', 'dialog'],
