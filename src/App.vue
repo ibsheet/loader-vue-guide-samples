@@ -24,6 +24,8 @@ export default {
         }
       ]
     });
+
+    loader.load()
   },
 }
 </script>

@@ -28,20 +28,25 @@ const getItemList = (pageName) => {
       break;
     case 'Tree' :
       itemList.model =
-        [{label:'showTreeLevel: 1', value:1},
+        [ {label:'Level 선택', value:''},
+          {label:'showTreeLevel: 1', value:1},
           {label:'showTreeLevel: 2', value:2},
           {label:'showTreeLevel: 3', value:3},
           {label:'showTreeLevel: 4', value:4}];
       break;
     case 'DataLoad' :
       itemList.model =
-      [{label:'100,000 건', value:100000},
+      [
+        {label:'선택', value: ''},
+        {label:'100,000 건', value:100000},
         {label:'200,000 건', value:200000},
         {label:'300,000 건', value:300000}];
       break;
     case 'SubSum' :
       itemList.model =
-      [{label:'단일 컬럼 소계', value:'subsum'},
+      [
+        {label:'소계 선택', value:''},
+        {label:'단일 컬럼 소계', value:'subsum'},
         {label:'단일 컬럼 소계 / 누계', value:'cumulate'},
         {label:'다중 컬럼 소계', value:'multisubsum'},
         {label:'다중 컬럼 소계 / 누계', value:'multicumulate'},
@@ -56,7 +61,7 @@ const getItemList = (pageName) => {
 
 // select 값 변경시 호출.
 const changeOpt = (pageName, sheetObj, val, val2, val3) => {
-  const mySheet = eval(sheetObj[0].id); // state가 proxy로 관리 되고있음.
+  const mySheet = sheetObj;
   const color = {
     subsum: '#f08080',
     cumul: '#78c7fa',
@@ -217,23 +222,27 @@ const changeOpt = (pageName, sheetObj, val, val2, val3) => {
               }
             ]);
             break;
-          default:
+          case 'removesubsum':
             mySheet.removeSubTotal();
+            break;
+          default: break;
         }
       break;
     case 'DataLoad' :
-        for (let i = 0; i < val.value; i++) {
-          data.push({
-            sCompany: company[Math.floor(Math.random() * 10)],
-            sCountry: country[Math.floor(Math.random() * 10)],
-            sSaleQuantity: Math.floor(Math.random() * 100000),
-            sSaleIncrease: Math.floor(Math.random() * 10000),
-            sPrice: Math.floor(Math.random() * 10000000),
-            sSatisfaction: Math.floor(Math.random() * (100 - 50 + 1) + 50),
-          });
+        if (typeof val.value == 'number') {
+          for (let i = 0; i < val.value; i++) {
+            data.push({
+              sCompany: company[Math.floor(Math.random() * 10)],
+              sCountry: country[Math.floor(Math.random() * 10)],
+              sSaleQuantity: Math.floor(Math.random() * 100000),
+              sSaleIncrease: Math.floor(Math.random() * 10000),
+              sPrice: Math.floor(Math.random() * 10000000),
+              sSatisfaction: Math.floor(Math.random() * (100 - 50 + 1) + 50),
+            });
+          }
+  
+          mySheet.loadSearchData({data:data});
         }
-
-        mySheet.loadSearchData({data:data});
       break;
     case 'Form' :
       for (let idx = 0; idx < val.target.length; idx++) {

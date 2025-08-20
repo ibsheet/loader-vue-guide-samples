@@ -1,33 +1,62 @@
 <template>
-
   <q-layout class="bg-grey-1" view="hhh LpR fFf">
-
-    <q-header elevated class="text-white" style="background: #42b983;" height-hint="98">
+    <!-- Header -->
+    <q-header elevated class="text-white" style="background:#42b983;" height-hint="64">
       <q-toolbar>
         <q-toolbar-title>
           <q-avatar>
-            <q-btn round dense flat :ripple="false" :icon="fasTable" size="sm" color="white" class="q-mr-sm" no-caps @click="changeRouter('/')"/>
+            <q-btn
+              round dense flat :ripple="false"
+              :icon="fasTable"
+              size="sm"
+              color="white"
+              class="q-mr-sm"
+              no-caps
+              @click="go('/')"
+            />
           </q-avatar>
-          <span style="vertical-align:middle"> IBSheet8 </span>
+          <span style="vertical-align:middle">IBSheet8</span>
         </q-toolbar-title>
+        <div class="row items-center">
+          <q-btn
+            v-if="showGithub"
+            icon="fab fa-github"
+            flat
+            dense
+            class="q-ml-sm"
+            label="GitHub"
+          type="a"
+          href="https://github.com/ibsheet/loader-vue-guide-samples"
+          target="_blank"
+        />
+        </div>
       </q-toolbar>
 
-      <q-tabs align="center">
-        <q-route-tab v-for='(info, idx) in sampleInfo' :key='idx' :to="info.to" :label="info.title" />
+      <!-- 탭 (라우트 연동) -->
+      <q-tabs align="center" shrink stretch>
+        <q-route-tab
+          v-for="(info, idx) in sampleInfo"
+          :key="idx"
+          :to="info.to"
+          :label="info.title"
+        />
       </q-tabs>
     </q-header>
 
-    <q-page-container>
+    <!-- 메인 페이지 컨테이너 (router-view 내 각 페이지에서 <ibsheet-vue> 사용) -->
+    <q-page-container class="main-page-container">
       <div class="makeStyles-content">
         <div class="makeStyles-header">
           <q-btn round dense flat :ripple="false" :icon="fasTable" size="xl" no-caps style="color:#42b983;" />
           <span class="makeStyles-title">IBSheet8</span>
           <p class="makeStyles-subTitle">Loader를 사용하여 IBSheet8의 대용량 조회, 높은 자유도, 다양한 렌더링 방식 등 다양한 기능을 Vue 환경에서 제공합니다.</p>
           <q-btn icon="fab fa-github-square" color="secondary" label="GitHub" type="a" href='https://github.com/ibsheet/loader-vue-guide-samples' target="__blank" style="width:150px; margin:5px;"/>
+          <!--
           <q-btn color="secondary" label="" type="a" href="https://codesandbox.io/s/github/ibsheet/loader-vue-guide-samples/tree/main?file=/src/main.js" target="__blank" style="width:150px; margin:5px;">
             <codesandbox-icon size="1.5x" style="margin-right:5px;" />
             SandBox
           </q-btn>
+          -->
         </div>
       </div>
       <div class="makeStyles-root-grid">
@@ -36,82 +65,70 @@
       </div>
     </q-page-container>
 
+    <!-- Footer -->
     <q-footer elevated class="bg-grey-8 text-white">
       <q-toolbar>
         <q-toolbar-title>
           <q-avatar>
-            <q-btn round dense flat :ripple="false" :icon="fasTable" size="sm" color="white" class="q-mr-sm" no-caps @click="changeRouter('/')" />
+            <q-btn
+              round dense flat :ripple="false"
+              :icon="fasTable"
+              size="sm"
+              color="white"
+              class="q-mr-sm"
+              no-caps
+              @click="go('/')"
+            />
           </q-avatar>
           <span>IBSheet8</span>
         </q-toolbar-title>
+        <div class="row items-center q-gutter-sm">
+          <q-badge color="secondary" align="middle">
+            {{ year }} © IBSheet8 Vue Guide Sample
+          </q-badge>
+        </div>
       </q-toolbar>
     </q-footer>
-
   </q-layout>
 </template>
 
 <script>
-import { fabGithub, fasTable } from '@quasar/extras/fontawesome-v5';
-import { computed } from "vue";
-import { useStore } from "vuex";
-import { CodesandboxIcon } from '@zhuowenli/vue-feather-icons';
+import { fasTable } from '@quasar/extras/fontawesome-v5'
+import { computed, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-const url = process.env.NODE_ENV === 'production' ? '/v8/demo/vue/' : '/';
+const base = (import.meta.env.MODE === 'production') ? '/v8/demo/vue/' : '/'
 
 export default {
   name: 'Layout',
-  setup (props) {
-    // vue3 에서는 여기서 다함. lifecycle hook 또한 setup 내부에서 선언하도록 하였습니다
-    const store = useStore();
-    const pageName = computed(() => store.state.Page.name);
-    const sheetObj = computed(() => store.state.Sheet.sheet);
-    const changePage = (title) => store.commit("CHANGE_SAMPLE", title);
-    // 삭제만 Layout에서 관리
-    const removeSheet = (id) => store.commit("REMOVE_SAMPLE", id);
+  setup () {
+    const router = useRouter()
+    const year = new Date().getFullYear()
+    const showGithub = ref(true)
+
+    const sampleInfo = computed(() => ([
+      { to: base + 'type',     title: 'Type' },
+      { to: base + 'merge',    title: 'Merge' },
+      { to: base + 'tree',     title: 'Tree' },
+      { to: base + 'dataload', title: 'Dataload' },
+      { to: base + 'subsum',   title: 'SubSum' },
+      { to: base + 'formula',  title: 'Formula' },
+      { to: base + 'form',     title: 'Form' },
+      { to: base + 'multiple', title: 'Multiple' },
+      { to: base + 'dialog',   title: 'Dialog' }
+    ]))
+
+    function go (path) {
+      router.push(path)
+    }
 
     return {
-      fabGithub,
       fasTable,
-      pageName,
-      changePage,
-      removeSheet,
-      sheetObj
+      sampleInfo,
+      go,
+      year,
+      showGithub
     }
-  },
-  // 라우터 사용
-  watch: {
-    '$route.name': function (val) {
-      // route 경로 변경시 state에 있는 name을 route name로 세팅.
-      this.changePage(val);
-      // 라우터 변경시 시트 삭제.
-      if (this.sheetObj.length > 0) {
-        this.removeSheet(this.sheetObj);
-      }
-    }
-  },
-  methods: {
-    changeRouter(name) {
-      this.$router.push(`${name}`);
-    },
-  },
-  data() {
-    return {
-      // 메인 화면에 보여줄 정보들.
-      sampleInfo: [
-        {to: url + 'type', title:'Type'},
-        {to: url + 'merge', title:'Merge'},
-        {to: url + 'tree', title:'Tree'},
-        {to: url + 'dataload', title:'Dataload'},
-        {to: url + 'subsum', title:'SubSum'},
-        {to: url + 'formula', title:'Formula'},
-        {to: url + 'form', title:'Form'},
-        {to: url + 'multiple', title:'Multiple'},
-        {to: url + 'dialog', title:'Dialog'}
-      ]
-    }
-  },
-  components: {
-    CodesandboxIcon
   }
 }
 </script>
@@ -119,7 +136,6 @@ export default {
 <style>
 .makeStyles-content {
   padding: 48px 0px 24px;
-  font-family: Noto Sans CJK KR,sans-serif;
   border-bottom: 1px solid rgb(229, 229, 229);
   background-color: rgb(247, 247, 247);
 }
@@ -154,5 +170,9 @@ export default {
 .makeStyles-infooter {
   margin: 0px auto;
   max-width: 1140px;
+}
+body {
+  margin: 0;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 </style>

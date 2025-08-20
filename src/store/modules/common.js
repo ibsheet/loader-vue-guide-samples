@@ -15,6 +15,9 @@ export const Page = {
     // state 에 담긴 name 기준으로 샘플 분리.
     pageInfo(state) {
       return state.name;
+    },
+    pageName(state) {
+      return state.name;
     }
   },
   actions: {

@@ -12,7 +12,8 @@ export const DialogOption =
           {
             Header: 'No',
             Type: 'Int',
-            Name: 'SEQ'
+            Name: 'SEQ',
+            MinWidth: 20
           }
         ],
         Cols: [

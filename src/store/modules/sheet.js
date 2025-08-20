@@ -1,6 +1,7 @@
-import { CREATE_SHEET } from '../mutation-types';
-import { REMOVE_SAMPLE } from '../mutation-types';
-import { CHANGE_SAMPLE } from '../mutation-types';
+import { CREATE_SHEET } from "../mutation-types";
+import { REMOVE_SAMPLE } from "../mutation-types";
+import { CHANGE_SAMPLE } from "../mutation-types";
+// 각 샘플별 옵션/데이터 import는 유지
 import { MultipleOptions } from '../../samples/multiple/info'
 import { MultipleData } from '../../samples/multiple/data'
 import { DialogOption } from '../../samples/dialog/info'
@@ -21,147 +22,92 @@ import { FormulaData } from '../../samples/formula/data'
 import { DataLoadOption } from '../../samples/dataload/info'
 import { set_data } from '../../samples/dataload/data'
 
-import loader from '@ibsheet/loader'
+const flattenData = (raw) => {
+  if (!raw) return [];
+  if (Array.isArray(raw)) {
+    if (raw.length === 1 && raw[0] && Array.isArray(raw[0].data)) {
+      return raw[0].data.slice();
+    }
+    if (!raw[0] || typeof raw[0] !== 'object' || !('data' in raw[0])) {
+      return raw.slice();
+    }
+  }
+  return [];
+};
 
-
-// 시트 생성 및 각 샘플별 필요한 생성옵션 및 데이터 생성 구간.
 export const Sheet = {
-  state: () => ({sheet:[], data: [], options:[], setting_data:set_data}),
+  namespaced: true,
+  state: () => ({
+    options: [],
+    data: [],
+    multiData: [],
+    setting_data: set_data // DataLoad 등 일부 샘플에서 필요
+  }),
   mutations: {
-    
-    //시트 생성 옵션을 객체로 처리하도록 변경. 시트 생성시 필요한 옵션이 있는 경우 옵션으로 처리하기 위함.
     [CREATE_SHEET.CREATE_SHEET](state, obj) {
       switch (obj.pageName || obj) {
-        case 'SubSum' :
+        case "SubSum":
           state.options = SubSumOption;
-          state.data = SubSumData;
+          state.data = flattenData(SubSumData);
           break;
-        case 'Type' :
+        case "Type":
           state.options = TypeOption;
-          state.data = TypeData;
+          state.data = flattenData(TypeData);
           break;
-        case 'Tree' :
+        case "Tree":
           state.options = TreeOption;
-          state.data = TreeData;
+          state.data = flattenData(TreeData);
           break;
-        case 'Merge' :
+        case "Merge":
           state.options = MergeOption;
-          state.data = MergeData;
+          state.data = flattenData(MergeData);
           break;
-        case 'Formula' :
+        case "Formula":
           state.options = FormulaOption;
-          state.data = FormulaData;
+          state.data = flattenData(FormulaData);
           break;
-        case 'Multiple' :
-            state.options = MultipleOptions;
-            state.data = MultipleData;
+        case "Multiple":
+          state.options = MultipleOptions;
+          state.multiData = MultipleData
+            .filter(d => d && Array.isArray(d.data))
+            .map(d => d.data.map(r => ({ ...r })));  // 깊은 복사
+          // 단일 sheetData 는 첫 시트 기준(필요 없다면 빈 배열 유지)
+          state.data = state.multiData[0] ? state.multiData[0] : [];
           break;
-        case 'Dialog' :
+        case "Dialog":
           state.options = DialogOption;
-          state.data = DialogData;
+          state.data = flattenData(DialogData);
           break;
-        case 'DataLoad' :
+        case "DataLoad":
           state.options = DataLoadOption;
-          state.data = [{data:state.setting_data(obj.opt)}];
+          state.data = [{ data: state.setting_data(obj.opt) }];
           break;
-        case 'Form' :
+        case "Form":
           state.options = FormOption;
-          state.data = FormData;
+          state.data = flattenData(FormData);
           break;
-        case 'ModalOpen' :
+        case "ModalOpen":
           state.options = ModalOption;
-          state.data = TypeData;
+          state.data = flattenData(TypeData);
           break;
+      }
 
-      }
-      // 렌더 후 조회.
-      const eventBinding = (name, sheet) => {
-        switch(name) {
-          case 'Form':
-            // 폼 태그에서 input 에 필요한 정보 세팅.
-            sheet.options.Events = {
-              onRenderFirstFinish: evt => {
-                if (state.data.length > 0) {
-                  state.data.map(sheetData =>{
-                    evt.sheet.loadSearchData(sheetData);
-                  })
-                }
-              },
-              onFocus: evt => {
-                document.getElementsByName('sName')[0].value = evt.row['sName'];
-                document.getElementsByName('sAge')[0].value = evt.row['sAge'];
-                document.getElementsByName('sPosi')[0].value = evt.row['sPosi'];
-                document.getElementsByName('sPrice')[0].value = evt.row['sPrice'];
-                document.getElementsByName('sDepart')[0].value = evt.row['sDepart'];
-              },
-              onBlur: () => {
-                document.getElementsByName('sName')[0].value = '';
-                document.getElementsByName('sAge')[0].value = '';
-                document.getElementsByName('sPosi')[0].value = '';
-                document.getElementsByName('sPrice')[0].value = '';
-                document.getElementsByName('sDepart')[0].value = '';
-              }
-            }
-            return sheet;
-          case 'Type':
-          case 'Formula':
-          case 'Merge':
-          case 'Tree':
-          case 'SubSum':
-          case 'Multiple':
-          case 'Dialog':
-          case 'DataLoad':
-          case 'ModalOpen':
-            sheet.options.Events = {
-              onRenderFirstFinish: evt => {
-                if (state.data.length > 0) {
-                  state.data.map(sheetData =>{
-                    evt.sheet.loadSearchData(sheetData);
-                  })
-                }
-              }
-            }
-            return sheet;
-        }
-      };
-
-      if (state.options.length > 0) {
-        state.options.map((sheet, idx) => {
-          eventBinding(obj.pageName || obj, sheet);
-          loader.createSheet({
-            id: sheet.id ? sheet.id : 'sheet' + (state.options.length > 1 ? (idx + 1) : ''),
-            el: sheet.el,
-            options : sheet.options ,
-          }).then(sheet => {
-            // 주의: 해당 구간에서 데이터 조회를 하면 안됩니다. 데이터 조회는 onRenderFirstFinish 이벤트에서 실행해야합니다.
-            state.sheet.push(sheet);
-          });
-        });
-      }
+      if (obj.pageName == 'Multiple' || obj == 'Multiple') state.multiData = [];
     },
-    [REMOVE_SAMPLE.REMOVE_SAMPLE](state, sObj) {
-      if (sObj.length > 0 && typeof(sObj) != 'string') {
-        sObj.map(sheetObj => {
-          loader.removeSheet(sheetObj.id)
-        })
-        state.sheet = [];
-      } else {
-        loader.removeSheet(sObj);
-      }
-    },
-    [CREATE_SHEET.CHANGE_SHEETDIV](state, tagId) {
-      state.tag_id = tagId;
+    [REMOVE_SAMPLE.REMOVE_SAMPLE](state) {
+      // 시트 삭제는 필요 없음, 단순 옵션/데이터 초기화만
+      state.options = [];
+      state.data = [];
+      state.multiData = [];
     },
     [CHANGE_SAMPLE.CHANGE_DATA](state, cnt) {
       state.data = state.setting_data(cnt);
-    }
+    },
   },
   getters: {
-    sheetnInfo(state) {
-      return state.sheet;
-    }
+    sheetOptions: (s) => s.options,
+    sheetData:    (s) => s.data,
+    sheetMultiData: (s) => s.multiData
   },
-  actions: {
-
-  }
+  actions: {},
 };
