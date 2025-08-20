@@ -1,8 +1,11 @@
 # Loader-Vue-Guide-Samples 👋
 
+## Guide sample using loader and ibsheet-vue, vue
+
 ### 사용기술
 
-👉 `@ibsheet/loader: 1.1.15` <br/>
+👉 `@ibsheet/loader: 1.1.25` <br/>
+👉 `@ibsheet/vue: 1.0.1` <br/>
 👉 `javascript, vue3, vue-router4, vuex, quasar`
 
 ### quasar
