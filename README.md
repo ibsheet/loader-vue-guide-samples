@@ -20,3 +20,5 @@
 3. `yarn`
 4. `yarn build` // build 파일 생성됨.
 5. `yarn serve`
+
+[IBsheet 8](https://www.ibsheet.com)(웹 데이터 그리드) 매뉴얼 https://docs.ibsheet.com/ibsheet/v8/manual/
